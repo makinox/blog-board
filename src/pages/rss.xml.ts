@@ -7,8 +7,7 @@ type Context = {
 }
 
 export async function GET(context: Context) {
-  const blog = (await getCollection("blog"))
-  .filter(post => !post.data.draft);
+  const blog = (await getCollection("blog"));
 
 
   const items = [...blog]
@@ -20,7 +19,7 @@ export async function GET(context: Context) {
     site: context.site,
     items: items.map((item) => ({
       title: item.data.title,
-      description: item.data.description,
+      description: item.data.title,
       pubDate: item.data.date,
       link: `/${item.collection}/${item.slug}/`,
     })),
