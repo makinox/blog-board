@@ -56,6 +56,15 @@ article {
   @apply transition-all duration-700 ease-out;
 }
 
+.animate div p {
+  margin: 0;
+  @apply text-xs mt-1 border-b border-black/5;
+}
+
+.animate :where(h2 + *):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  margin: 0;
+}
+
 .animate.show {
   @apply opacity-100 translate-y-0;
 }
