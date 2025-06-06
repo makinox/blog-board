@@ -8,7 +8,7 @@ import BackToTop from "@components/BackToTop.astro";
 import { cn } from "@lib/utils";
 
 const classes = {
-  link: cn("group size-8 flex items-center justify-center rounded-full")
+  link: cn("group size-8 flex items-center justify-center rounded-full hover:text-black transition-colors duration-300 ease-in-out")
 };
 
 ---
@@ -22,7 +22,7 @@ const classes = {
     </div>
     <div class="flex justify-between items-center">
       <div>
-        &copy; {(new Date).getFullYear()} {`|`} {SITE.NAME}
+        &copy; {(new Date).getFullYear()} {`|`} {SITE.AUTHOR}
       </div>
       <div class="flex flex-wrap gap-1 items-center">
 
