@@ -1,8 +1,10 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
+import { Image } from "astro:assets";
 import PageLayout from "@layouts/PageLayout.astro";
 import Container from "@components/Container.astro";
 import FormattedDate from "@components/FormattedDate.astro";
+import CustomImage from "@components/CustomImage.astro";
 import { readingTime } from "@lib/utils";
 import BackToPrev from "@components/BackToPrev.astro";
 
@@ -18,9 +20,13 @@ type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
 const { Content } = await post.render();
+const components = { img: CustomImage };
 ---
 
 <PageLayout title={post.data.title} description={post.data.title}>
+  <div class="h-32 sm:h-52 lg:h-80  w-full my-14">
+    <Image class="w-full h-full object-cover" src={post.data.timage} alt={post.data.title} height={128} width={320} format="webp"/>
+  </div>
   <Container>
     <div class="animate">
       <BackToPrev href="/">
@@ -41,8 +47,8 @@ const { Content } = await post.render();
         {post.data.title}
       </div>
     </div>
-    <article class="animate">
-      <Content />
+    <article class="animate mb-28">
+      <Content components={components} />
     </article>
   </Container>
 </PageLayout>

@@ -1,0 +1,14 @@
+---
+import { Image } from "astro:assets";
+const { src, alt = "", ...rest } = Astro.props;
+---
+
+<Image
+  src={src}
+  alt={alt}
+  width={600}
+  format="webp"
+  loading="lazy"
+  decoding="async"
+  {...rest}
+/>
