@@ -4,28 +4,32 @@ import { FaRegUser, FaGithub } from "react-icons/fa";
 import { SITE } from "@consts";
 
 import Container from "@components/Container.astro";
-import BackToTop from "@components/BackToTop.astro";
 import { cn } from "@lib/utils";
 
 const classes = {
-  link: cn("group size-8 flex items-center justify-center rounded-full hover:text-black transition-colors duration-300 ease-in-out")
+  link: cn("group size-8 flex items-center justify-center rounded-full hover:text-info transition-colors duration-300 ease-in-out"),
 };
-
 ---
 
-<footer class="animate">
+<footer class="animate py-5 text-sm">
   <Container>
     <div class="relative">
       <div class="absolute right-0 -top-20">
-        <BackToTop />
+        <button
+          id="back-to-top"
+          class="btn btn-outline hover:btn-info btn-sm relative text-nowrap transition-colors duration-300 ease-in-out"
+        >
+          Hacia arriba
+        </button>
       </div>
     </div>
     <div class="flex justify-between items-center">
       <div>
-        &copy; {(new Date).getFullYear()} {`|`} {SITE.AUTHOR}
+        &copy; {new Date().getFullYear()}
+        {`|`}
+        {SITE.AUTHOR}
       </div>
       <div class="flex flex-wrap gap-1 items-center">
-
         <a href="https://github.com/makinox" class={classes.link} target="_blank">
           <FaGithub />
         </a>
@@ -33,7 +37,6 @@ const classes = {
         <a href="https://jesusbossa.dev/" class={classes.link} target="_blank">
           <FaRegUser />
         </a>
-
       </div>
     </div>
   </Container>

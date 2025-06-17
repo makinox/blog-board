@@ -1,6 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "daisyui";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-sans: Inter;
+  --font-serif: Lora;
+}
 
 html {
   overflow-y: scroll;
@@ -9,28 +14,6 @@ html {
 
 html.dark {
   color-scheme: dark;
-}
-
-html,
-body {
-  @apply size-full;
-}
-
-body {
-  @apply font-sans antialiased;
-  @apply flex flex-col;
-  @apply bg-stone-100 dark:bg-stone-900;
-  @apply text-black/50 dark:text-white/75;
-}
-
-header {
-  @apply fixed top-0 left-0 right-0 z-50 py-1;
-  @apply bg-stone-100/75 dark:bg-stone-900/25;
-  @apply backdrop-blur-sm saturate-200;
-}
-
-footer {
-  @apply py-5 text-sm;
 }
 
 article {
@@ -58,7 +41,7 @@ article {
 
 .animate div p {
   margin: 0;
-  @apply text-xs mt-1 border-b border-black/5;
+  @apply text-xs mt-2 pb-1 border-b border-black/5;
 }
 
 .animate :where(h2 + *):not(:where([class~="not-prose"],[class~="not-prose"] *)) {

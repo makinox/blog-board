@@ -1,10 +1,14 @@
 import { defineConfig } from "astro/config";
-import mdx from "@astrojs/mdx";
+
+import tailwind from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
-import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
+import mdx from "@astrojs/mdx";
 
 export default defineConfig({
   site: "https://astro-nano-demo.vercel.app",
-  integrations: [mdx(), sitemap(), tailwind(), react()],
+  integrations: [mdx(), sitemap(), react()],
+  vite: {
+    plugins: [tailwind()]
+  }
 });

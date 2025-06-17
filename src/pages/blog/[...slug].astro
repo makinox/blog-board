@@ -6,7 +6,6 @@ import Container from "@components/Container.astro";
 import FormattedDate from "@components/FormattedDate.astro";
 import CustomImage from "@components/CustomImage.astro";
 import { readingTime } from "@lib/utils";
-import BackToPrev from "@components/BackToPrev.astro";
 
 export async function getStaticPaths() {
   const posts = (await getCollection("blog"))
@@ -28,11 +27,6 @@ const components = { img: CustomImage };
     <Image class="w-full h-full object-cover" src={post.data.timage} alt={post.data.title} height={128} width={320} format="webp"/>
   </div>
   <Container>
-    <div class="animate">
-      <BackToPrev href="/">
-        Hacia atrás
-      </BackToPrev>
-    </div>
     <div class="space-y-1 my-10">
       <div class="animate flex items-center gap-1.5">
         <div class="font-base text-sm">
