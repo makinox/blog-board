@@ -4,7 +4,7 @@ export const SITE: Site = {
   NAME: "Voib",
   AUTHOR: "Jesús Bossa",
   EMAIL: "x@jesusbossa.dev",
-  NUM_POSTS_ON_HOMEPAGE: 3,
+  NUM_POSTS_ON_HOMEPAGE: 8,
   NUM_WORKS_ON_HOMEPAGE: 2,
   NUM_PROJECTS_ON_HOMEPAGE: 3,
 };
@@ -41,5 +41,9 @@ export const SOCIALS: Socials = [
   { 
     NAME: "linkedin",
     HREF: "https://www.linkedin.com/in/jesusbossa",
-  }
+  },
+  { 
+    NAME: "home",
+    HREF: "https://jesusbossa.dev",
+  },
 ];

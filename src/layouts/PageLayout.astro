@@ -1,7 +1,6 @@
 ---
 import Head from "@components/Head.astro";
 import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
 import { SITE } from "@consts";
 
 type Props = {
@@ -17,11 +16,10 @@ const { title, description } = Astro.props;
   <head>
     <Head title={`${title} | ${SITE.NAME}`} description={description} />
   </head>
-  <body class="font-sans antialiased text-black/50 dark:text-white/75 size-full inline-table bg-stone-100 dark:bg-stone-900 bg-amber-300">
+  <body class="font-sans antialiased text-black/50 dark:text-white/75 size-full inline-table bg-stone-100 dark:bg-stone-900">
     <Header />
     <main>
       <slot />
     </main>
-    <Footer />
   </body>
 </html>

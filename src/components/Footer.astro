@@ -1,7 +1,7 @@
 ---
-import { FaRegUser, FaGithub } from "react-icons/fa";
+import { FaRegUser, FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 
-import { SITE } from "@consts";
+import { SOCIALS } from "@consts";
 
 import Container from "@components/Container.astro";
 import { cn } from "@lib/utils";
@@ -11,30 +11,26 @@ const classes = {
 };
 ---
 
-<footer class="animate py-5 text-sm">
+<footer class="animate py-5 text-sm mt-auto">
   <Container>
-    <div class="relative">
-      <div class="absolute right-0 -top-20">
-        <button
-          id="back-to-top"
-          class="btn btn-outline hover:btn-info btn-sm relative text-nowrap transition-colors duration-300 ease-in-out"
-        >
-          Hacia arriba
-        </button>
-      </div>
-    </div>
     <div class="flex justify-between items-center">
       <div>
         &copy; {new Date().getFullYear()}
-        {`|`}
-        {SITE.AUTHOR}
       </div>
       <div class="flex flex-wrap gap-1 items-center">
-        <a href="https://github.com/makinox" class={classes.link} target="_blank">
+        <a href={SOCIALS[0].HREF} class={classes.link} target="_blank">
+          <FaInstagram />
+        </a>
+
+        <a href={SOCIALS[1].HREF} class={classes.link} target="_blank">
           <FaGithub />
         </a>
 
-        <a href="https://jesusbossa.dev/" class={classes.link} target="_blank">
+        <a href={SOCIALS[2].HREF} class={classes.link} target="_blank">
+          <FaLinkedin />
+        </a>
+
+        <a href={SOCIALS[3].HREF} class={classes.link} target="_blank">
           <FaRegUser />
         </a>
       </div>
