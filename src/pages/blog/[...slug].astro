@@ -4,13 +4,14 @@ import { Image } from "astro:assets";
 
 import FormattedDate from "@components/FormattedDate.astro";
 import CustomImage from "@components/CustomImage.astro";
+import PostFooter from "@components/PostFooter.astro";
+import TagsFooter from "@components/TagsFooter.astro";
 import Container from "@components/Container.astro";
 import Footer from "@components/Footer.astro";
 
 import PageLayout from "@layouts/PageLayout.astro";
 
 import { readingTime } from "@lib/utils";
-import PostFooter from "@components/PostFooter.astro";
 
 export async function getStaticPaths() {
   const posts = (await getCollection("blog"))
@@ -46,10 +47,11 @@ const components = { img: CustomImage };
         {post.data.title}
       </div>
     </section>
-    <article class="animate mb-20">
+    <article class="animate">
       <Content components={components} />
     </article>
     
+    <TagsFooter tags={post.data.tags} />
     <PostFooter post={post} />
     <Footer />
     

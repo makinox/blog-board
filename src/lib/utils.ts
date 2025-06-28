@@ -38,3 +38,5 @@ export function dateRange(startDate: Date, endDate?: Date | string): string {
 
   return `${startMonth}${startYear} - ${endMonth}${endYear}`;
 }
+
+export const formatTag = (tag: string) => tag.toLowerCase().replace(/ /g, "-");

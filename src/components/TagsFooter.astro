@@ -1,0 +1,19 @@
+---
+import { formatTag } from "@lib/utils";
+
+type Props = {
+  tags?: Array<string>;
+};
+
+const { tags } = Astro.props;
+
+if (!tags) return null;
+---
+
+<ul class="flex flex-wrap gap-2 border-b pt-6 pb-4 mb-10">
+  {tags.map((slug) => (
+    <li>
+      <a class="btn btn-outline btn-xs hover:btn-info capitalize" href={`/tag/${formatTag(slug)}`}>{slug}</a>
+    </li>
+  ))}
+</ul>

@@ -1,8 +1,12 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
+
 import PageLayout from "@layouts/PageLayout.astro";
+
 import Container from "@components/Container.astro";
 import ArrowCard from "@components/ArrowCard.astro";
+import Footer from "@components/Footer.astro";
+
 import { BLOG } from "@consts";
 
 const data = (await getCollection("blog"))
@@ -51,4 +55,5 @@ const years = Object.keys(posts).sort((a, b) => parseInt(b) - parseInt(a));
       </div>
     </div>
   </Container>
+  <Footer />
 </PageLayout>

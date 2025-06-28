@@ -1,0 +1,51 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+
+import Container from "@components/Container.astro";
+import ArrowCard from "@components/ArrowCard.astro";
+import Footer from "@components/Footer.astro";
+
+import PageLayout from "@layouts/PageLayout.astro";
+import { formatTag } from "@lib/utils";
+
+import { BLOG } from "@consts";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  const tags = posts.map((post) => post.data.tags).flat();
+  const uniqueTags = [...new Set(tags)];
+
+  return uniqueTags.map((tag) => {
+    const formattedTag = formatTag(tag);
+    const postsWithTag = posts.filter((post) => post.data.tags?.includes(tag));
+
+    return {
+      params: { slug: formattedTag },
+      props: { posts: postsWithTag },
+    };
+  });
+}
+
+type Props = {
+  posts: Array<CollectionEntry<"blog">>;
+};
+
+const { posts } = Astro.props;
+---
+
+<PageLayout title={BLOG.TITLE} description={BLOG.DESCRIPTION}>
+  <Container >
+    <div class="space-y-16">
+      <section class="animate space-y-6 mt-20">
+        <ul class="flex flex-col gap-4">
+          {posts.map(post => (
+            <li>
+              <ArrowCard entry={post} />
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+    <Footer />
+  </Container>
+</PageLayout>
