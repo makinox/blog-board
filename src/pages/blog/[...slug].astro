@@ -27,7 +27,7 @@ const { Content } = await post.render();
 const components = { img: CustomImage };
 ---
 
-<PageLayout title={post.data.title} description={post.data.title}>
+<PageLayout title={post.data.title} description={post.data.title} image={post.data.timage}>
   <div class="h-32 sm:h-52 lg:h-80  w-full my-14">
     <Image class="w-full h-full object-cover" src={post.data.timage} alt={post.data.title} height={128} width={320} format="webp"/>
   </div>

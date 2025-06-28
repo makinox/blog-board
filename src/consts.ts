@@ -4,13 +4,13 @@ export const SITE: Site = {
   NAME: "Voib",
   AUTHOR: "Jesús Bossa",
   EMAIL: "x@jesusbossa.dev",
-  NUM_POSTS_ON_HOMEPAGE: 8,
+  NUM_POSTS_ON_HOMEPAGE: 20,
   NUM_WORKS_ON_HOMEPAGE: 2,
   NUM_PROJECTS_ON_HOMEPAGE: 3,
 };
 
 export const HOME: Metadata = {
-  TITLE: "Voib - Un blog de Jesús David Bossa",
+  TITLE: "Voib - Un blog de Jesús Bossa",
   DESCRIPTION: "Un blog para compartir opinión de programación y videojuegos. Sientete como en casa, tratare de escribir temas recurrentemente.",
 };
 
