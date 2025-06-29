@@ -1,0 +1,38 @@
+---
+import { getCollection } from "astro:content";
+
+import Container from "@components/Container.astro";
+import PageLayout from "@layouts/PageLayout.astro";
+import Footer from "@components/Footer.astro";
+
+import { formatTag } from "@lib/utils";
+import { BLOG } from "@consts";
+
+const posts = await getCollection("blog");
+const tags = posts.map((post) => post.data.tags).flat().map((tag) => formatTag(tag));
+const countTags = tags.reduce(
+  (counter, tag) => {
+    counter[tag] = (counter[tag] || 0) + 1;
+    return counter;
+  },
+  {} as Record<string, number>
+);
+
+---
+
+<PageLayout title={BLOG.TITLE} description={BLOG.DESCRIPTION}>
+  <Container>
+    <div class="space-y-16">
+      <section class="animate space-y-6 mt-20">
+        <ul class="flex flex-wrap gap-4">
+          {Object.entries(countTags).map(([tag, count]) => (
+            <li>
+              <a class="btn btn-outline btn-sm hover:btn-info capitalize" href={`/tag/${tag}`}>{tag} {count}</a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  </Container>
+  <Footer />
+</PageLayout>
