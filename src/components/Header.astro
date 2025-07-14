@@ -5,13 +5,16 @@ import { SITE } from "@consts";
 
 <header class="fixed top-0 left-0 right-0 z-50 py-1 bg-stone-100/75 dark:bg-stone-900/25 backdrop-blur-sm saturate-200">
   <Container>
-    <div >
+    <div class="flex items-center justify-between">
       <a href="/">
         <div class="flex items-center gap-2">
           <img src="/logo.svg" class="w-6 mb-1" />
           {SITE.NAME}
         </div>
-
+      </a>
+      
+      <a href="/auth" class="btn btn-outline btn-xs hover:btn-info">
+        Iniciar Sesión
       </a>
     </div>
   </Container>

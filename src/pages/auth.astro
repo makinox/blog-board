@@ -1,0 +1,68 @@
+---
+import Container from "@components/Container.astro";
+import Footer from "@components/Footer.astro";
+import PageLayout from "@layouts/PageLayout.astro";
+import SignInForm from "@components/SignInForm.astro";
+import SignUpForm from "@components/SignUpForm.astro";
+import { SITE } from "@consts";
+
+const AUTH = {
+  TITLE: "Autenticación",
+  DESCRIPTION: "Inicia sesión o regístrate en Voib para acceder a contenido exclusivo.",
+};
+---
+
+<PageLayout title={AUTH.TITLE} description={AUTH.DESCRIPTION}>
+  <Container>
+    <div class="min-h-screen flex items-center justify-center py-20">
+      <div class="w-full max-w-md">
+        <!-- Logo y título -->
+        <div class="text-center mb-8">
+          <div class="flex items-center justify-center gap-2 mb-4">
+            <img src="/logo.svg" class="w-8 h-8" alt="Voib Logo" />
+            <h1 class="text-2xl font-semibold text-black dark:text-white mt-1">{SITE.NAME}</h1>
+          </div>
+          <p class="text-black/60 dark:text-white/60">Bienvenido de vuelta</p>
+        </div>
+
+        <!-- Tabs para Sign In / Sign Up -->
+        <div class="tabs tabs-box bg-stone-200/50 dark:bg-stone-800/50 mb-6" role="tablist">
+          <a role="tab" class="tab w-1/2 tab-active" id="signin-tab">Iniciar Sesión</a>
+          <a role="tab" class="tab w-1/2" id="signup-tab">Registrarse</a>
+        </div>
+
+        <SignInForm />
+        <SignUpForm />
+
+        <div class="text-center mt-8">
+          <a href="/" class="link link-hover text-stone-500 dark:text-stone-400">
+            ← Volver al inicio
+          </a>
+        </div>
+      </div>
+    </div>
+  </Container>
+  <Footer />
+
+  <script>
+    // Funcionalidad para cambiar entre tabs
+    const signinTab = document.getElementById("signin-tab");
+    const signupTab = document.getElementById("signup-tab");
+    const signinForm = document.getElementById("signin-form");
+    const signupForm = document.getElementById("signup-form");
+
+    signinTab?.addEventListener("click", () => {
+      signinTab.classList.add("tab-active");
+      signupTab?.classList.remove("tab-active");
+      signinForm?.classList.remove("hidden");
+      signupForm?.classList.add("hidden");
+    });
+
+    signupTab?.addEventListener("click", () => {
+      signupTab.classList.add("tab-active");
+      signinTab?.classList.remove("tab-active");
+      signupForm?.classList.remove("hidden");
+      signinForm?.classList.add("hidden");
+    });
+  </script>
+</PageLayout> 
