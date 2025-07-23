@@ -1,74 +1,112 @@
 import { sharedClasses } from "@styles/sharedClasses";
 import { AuthTabs } from "../AuthForms/AuthFormTabs";
+import { useState } from "react";
+import { cn } from "@lib/utils";
 
 export const SignUpForm = () => {
-  return <div id={AuthTabs.SignUp} className="space-y-4">
-    <div className="form-control">
-      <label className="label">
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: ""
+  });
+
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    password: ""
+  });
+
+  const classes = (hasError?: boolean) => ({
+    input: cn(sharedClasses.input, {
+      "border-red-500": hasError,
+    }),
+    errorText: cn("h-4 mt-1 block", {
+      "text-red-500 text-sm": hasError,
+      "invisible": !hasError,
+    }),
+    section: cn("mb-2")
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (errors[name as keyof typeof errors]) setErrors(prev => ({ ...prev, [name]: "" }));
+  };
+
+  const validateForm = () => {
+    const newErrors = {
+      name: "",
+      email: "",
+      password: ""
+    };
+
+    if (formData.name.length < 5) newErrors.name = "El nombre debe tener al menos 5 caracteres";
+    if (!formData.email) newErrors.email = "El email es requerido";
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "El email no es válido";
+    if (formData.password.length < 5) newErrors.password = "La contraseña debe tener al menos 5 caracteres";
+
+    setErrors(newErrors);
+    return !Object.values(newErrors).some(error => error !== "");
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (validateForm()) {
+      console.log("Formulario válido:", formData);
+    } else {
+      console.log("Formulario con errores:", errors);
+    }
+  };
+
+  return <form id={AuthTabs.SignUp} className="space-y-4" onSubmit={handleSubmit}>
+    <div className={classes().section}>
+      <label className="label" htmlFor="name">
         <span className={sharedClasses.inputLabel}>Nombre completo</span>
       </label>
       <input
         type="text"
+        name="name"
+        value={formData.name}
+        onChange={handleInputChange}
         placeholder="Tu nombre completo"
-        className={sharedClasses.input}
+        className={classes(!!errors.name).input}
       />
+      <span className={classes(!!errors.name).errorText}>{errors.name}</span>
     </div>
 
-    <div className="form-control">
-      <label className="label">
-        <span className={sharedClasses.inputLabel}>Email</span>
-      </label>
-      <input
-        type="text"
-        placeholder="Tu nombre completo"
-        className={sharedClasses.input}
-      />
-    </div>
-
-    <div className="form-control">
-      <label className="label">
+    <div className={classes().section}>
+      <label className="label" htmlFor="email">
         <span className={sharedClasses.inputLabel}>Email</span>
       </label>
       <input
         type="email"
+        name="email"
+        value={formData.email}
+        onChange={handleInputChange}
         placeholder="tu@email.com"
-        className={sharedClasses.input}
+        className={classes(!!errors.email).input}
       />
+      <span className={classes(!!errors.email).errorText}>{errors.email}</span>
     </div>
 
-    <div className="form-control">
-      <label className="label">
+    <div className="mb-4">
+      <label className="label" htmlFor="password">
         <span className={sharedClasses.inputLabel}>Contraseña</span>
       </label>
       <input
         type="password"
+        name="password"
+        value={formData.password}
+        onChange={handleInputChange}
         placeholder="••••••••"
-        className={sharedClasses.input}
+        className={classes(!!errors.password).input}
       />
-    </div>
-
-    <div className="form-control">
-      <label className="label">
-        <span className={sharedClasses.inputLabel}>Confirmar contraseña</span>
-      </label>
-      <input
-        type="password"
-        placeholder="••••••••"
-        className={sharedClasses.input}
-      />
-    </div>
-
-    <div className="form-control">
-      <label className="label cursor-pointer">
-        <span className={sharedClasses.inputLabel}>
-          Acepto los <a href="#" className="link link-hover text-stone-500 dark:text-stone-400">términos y condiciones</a>
-        </span>
-        <input type="checkbox" className="checkbox checkbox-sm" />
-      </label>
+      <span className={classes(!!errors.password).errorText}>{errors.password}</span>
     </div>
 
     <button className="btn btn-primary w-full bg-stone-800 hover:bg-stone-700 dark:bg-stone-200 dark:hover:bg-stone-300 dark:text-black text-white border-0">
       Crear cuenta
     </button>
-  </div>;
+  </form>;
 };

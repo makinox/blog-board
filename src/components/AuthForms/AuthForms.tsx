@@ -7,7 +7,8 @@ import { cn } from "@lib/utils";
 import { AuthTabs } from "./AuthFormTabs";
 
 export const AuthForms = () => {
-  const [activeTab, setActiveTab] = useState(AuthTabs.SignIn);
+  const defaultTab = window.location.hash.split("#")[1] || AuthTabs.SignIn;
+  const [activeTab, setActiveTab] = useState(defaultTab);
 
   const classes = (isActive) => ({
     tab: cn("tab w-1/2", {
@@ -17,6 +18,7 @@ export const AuthForms = () => {
 
   const handleTabClick = (tab: AuthTabs) => {
     setActiveTab(tab);
+    window.location.hash = tab;
   };
 
   return <Fragment>
