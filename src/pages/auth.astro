@@ -2,8 +2,7 @@
 import Container from "@components/Container.astro";
 import Footer from "@components/Footer.astro";
 import PageLayout from "@layouts/PageLayout.astro";
-import SignInForm from "@components/SignInForm.astro";
-import SignUpForm from "@components/SignUpForm.astro";
+import { AuthForms } from "@components/AuthForms/AuthForms";
 import { SITE } from "@consts";
 
 const AUTH = {
@@ -25,14 +24,7 @@ const AUTH = {
           <p class="text-black/60 dark:text-white/60">Bienvenido de vuelta</p>
         </div>
 
-        <!-- Tabs para Sign In / Sign Up -->
-        <div class="tabs tabs-box bg-stone-200/50 dark:bg-stone-800/50 mb-6" role="tablist">
-          <a role="tab" class="tab w-1/2 tab-active" id="signin-tab">Iniciar Sesión</a>
-          <a role="tab" class="tab w-1/2" id="signup-tab">Registrarse</a>
-        </div>
-
-        <SignInForm />
-        <SignUpForm />
+        <AuthForms client:load />
 
         <div class="text-center mt-8">
           <a href="/" class="link link-hover text-stone-500 dark:text-stone-400">
@@ -43,26 +35,4 @@ const AUTH = {
     </div>
   </Container>
   <Footer />
-
-  <script>
-    // Funcionalidad para cambiar entre tabs
-    const signinTab = document.getElementById("signin-tab");
-    const signupTab = document.getElementById("signup-tab");
-    const signinForm = document.getElementById("signin-form");
-    const signupForm = document.getElementById("signup-form");
-
-    signinTab?.addEventListener("click", () => {
-      signinTab.classList.add("tab-active");
-      signupTab?.classList.remove("tab-active");
-      signinForm?.classList.remove("hidden");
-      signupForm?.classList.add("hidden");
-    });
-
-    signupTab?.addEventListener("click", () => {
-      signupTab.classList.add("tab-active");
-      signinTab?.classList.remove("tab-active");
-      signupForm?.classList.remove("hidden");
-      signinForm?.classList.add("hidden");
-    });
-  </script>
 </PageLayout> 
