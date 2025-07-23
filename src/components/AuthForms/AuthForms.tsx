@@ -10,7 +10,7 @@ export const AuthForms = () => {
   const defaultTab = window.location.hash.split("#")[1] || AuthTabs.SignIn;
   const [activeTab, setActiveTab] = useState(defaultTab);
 
-  const classes = (isActive) => ({
+  const classes = (isActive: boolean) => ({
     tab: cn("tab w-1/2", {
       "tab-active": isActive,
     }),

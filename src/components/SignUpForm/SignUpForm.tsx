@@ -2,6 +2,7 @@ import { sharedClasses } from "@styles/sharedClasses";
 import { AuthTabs } from "../AuthForms/AuthFormTabs";
 import { useState } from "react";
 import { cn } from "@lib/utils";
+import { signUp } from "@controllers/signUp/signUp";
 
 export const SignUpForm = () => {
   const [formData, setFormData] = useState({
@@ -54,6 +55,8 @@ export const SignUpForm = () => {
 
     if (validateForm()) {
       console.log("Formulario válido:", formData);
+
+      signUp(formData);
     } else {
       console.log("Formulario con errores:", errors);
     }

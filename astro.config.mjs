@@ -1,4 +1,4 @@
-import { defineConfig } from "astro/config";
+import { defineConfig, envField } from "astro/config";
 
 import tailwind from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
@@ -10,5 +10,8 @@ export default defineConfig({
   integrations: [mdx(), sitemap(), react()],
   vite: {
     plugins: [tailwind()]
+  },
+  schema: {
+    PUBLIC_API_ORIGIN: envField.string({ context: "client", access: "public", optional: true })
   }
 });
