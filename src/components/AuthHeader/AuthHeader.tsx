@@ -13,7 +13,7 @@ export const AuthHeader = ({
   const [retry, setRetry] = useState(0);
 
   useEffect(() => {
-    if (retry > 3) {
+    if (!user && retry < 3) {
       setTimeout(() => setRetry((prev) => prev + 1), 1000);
       return;
     }

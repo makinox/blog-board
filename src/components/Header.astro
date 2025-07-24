@@ -1,4 +1,5 @@
 ---
+import { HeaderSign } from "@components/HeaderSign/HeaderSign";
 import Container from "@components/Container.astro";
 import { SITE } from "@consts";
 ---
@@ -13,9 +14,7 @@ import { SITE } from "@consts";
         </div>
       </a>
       
-      <a href="/auth" class="btn btn-outline btn-xs hover:btn-info">
-        Iniciar Sesión
-      </a>
+      <HeaderSign client:load />
     </div>
   </Container>
 </header>
