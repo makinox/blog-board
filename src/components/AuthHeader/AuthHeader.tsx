@@ -1,0 +1,29 @@
+import { useEffect, useState } from "react";
+
+import { useAuthStore } from "@stores/authStore";
+
+interface AuthHeaderProps {
+  redirectIfAuthenticated?: boolean;
+}
+
+export const AuthHeader = ({
+  redirectIfAuthenticated = true
+}: AuthHeaderProps) => {
+  const { user } = useAuthStore();
+  const [retry, setRetry] = useState(0);
+
+  useEffect(() => {
+    if (retry > 3) {
+      setTimeout(() => setRetry((prev) => prev + 1), 1000);
+      return;
+    }
+    if (user && redirectIfAuthenticated) {
+      window.location.href = "/";
+      return;
+    }
+    if (!user && !redirectIfAuthenticated) {
+      window.location.href = "/auth";
+      return;
+    }
+  }, [retry, user]);
+};
