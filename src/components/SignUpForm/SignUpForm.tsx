@@ -1,10 +1,14 @@
-import { sharedClasses } from "@styles/sharedClasses";
-import { AuthTabs } from "../AuthForms/AuthFormTabs";
 import { useState } from "react";
-import { cn } from "@lib/utils";
+
+import { sharedClasses } from "@styles/sharedClasses";
 import { signUp } from "@controllers/signUp/signUp";
+import { useAuthStore } from "@stores/authStore";
+import { cn } from "@lib/utils";
+
+import { AuthTabs } from "../AuthForms/AuthFormTabs";
 
 export const SignUpForm = () => {
+  const { login } = useAuthStore();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -15,7 +19,8 @@ export const SignUpForm = () => {
   const [errors, setErrors] = useState({
     name: "",
     email: "",
-    password: ""
+    password: "",
+    button: ""
   });
 
   const classes = (hasError?: boolean) => ({
@@ -27,7 +32,7 @@ export const SignUpForm = () => {
       "invisible": !hasError,
     }),
     section: cn("mb-2"),
-    button: cn("btn btn-primary w-full bg-stone-800 hover:bg-stone-700 dark:bg-stone-200 dark:hover:bg-stone-300 dark:text-black text-white border-0", {
+    button: cn("btn btn-primary w-full mb-1 bg-stone-800 hover:bg-stone-700 dark:bg-stone-200 dark:hover:bg-stone-300 dark:text-black text-white border-0", {
       "opacity-50 cursor-not-allowed": isLoading
     })
   });
@@ -42,7 +47,8 @@ export const SignUpForm = () => {
     const newErrors = {
       name: "",
       email: "",
-      password: ""
+      password: "",
+      button: ""
     };
 
     if (formData.name.length < 5) newErrors.name = "El nombre debe tener al menos 5 caracteres";
@@ -61,10 +67,15 @@ export const SignUpForm = () => {
     try {
       if (!validateForm()) return;
 
-      await signUp(formData);
+      const response = await signUp(formData);
+      login(response.user, response.token);
       setIsLoading(false);
     } catch (error) {
       console.error("Error al registrar usuario:", error);
+      setErrors({
+        ...errors,
+        button: "Error al registrar usuario"
+      });
     } finally {
       setIsLoading(false);
     }
@@ -116,8 +127,10 @@ export const SignUpForm = () => {
       <span className={classes(!!errors.password).errorText}>{errors.password}</span>
     </div>
 
+
     <button className={classes().button} disabled={isLoading}>
       Crear cuenta
     </button>
+    <span className={classes(!!errors.button).errorText}>{errors.button}</span>
   </form>;
 };

@@ -1,18 +1,16 @@
 import { globalController } from "@controllers/globalController/globalController";
 import type { User } from "@stores/authStore";
 
-type SignUpData = {
-  name: string;
+type SignInData = {
   email: string;
   password: string;
 }
 
-export interface SignUpResponse {
+export interface AuthResponse {
   success: boolean;
   message: string;
   token: string;
   user: User;
-  visitor_id: number | null;
-} 
+}
 
-export const signUp = async (data: SignUpData): Promise<SignUpResponse> => await globalController("/sign-up", "POST", data);
+export const signIn = async (data: SignInData): Promise<AuthResponse> => await globalController("/sign-in", "POST", data); 
