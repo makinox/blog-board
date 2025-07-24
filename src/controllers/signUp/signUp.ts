@@ -6,6 +6,4 @@ type SignUpData = {
   password: string;
 }
 
-export const signUp = async (data: SignUpData) => {
-  return await globalController("/sign-up", "POST", data);
-};
+export const signUp = async (data: SignUpData) => await globalController("/sign-up", "POST", data);

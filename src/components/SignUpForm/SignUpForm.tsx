@@ -5,6 +5,7 @@ import { cn } from "@lib/utils";
 import { signUp } from "@controllers/signUp/signUp";
 
 export const SignUpForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -25,7 +26,10 @@ export const SignUpForm = () => {
       "text-red-500 text-sm": hasError,
       "invisible": !hasError,
     }),
-    section: cn("mb-2")
+    section: cn("mb-2"),
+    button: cn("btn btn-primary w-full bg-stone-800 hover:bg-stone-700 dark:bg-stone-200 dark:hover:bg-stone-300 dark:text-black text-white border-0", {
+      "opacity-50 cursor-not-allowed": isLoading
+    })
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,15 +54,19 @@ export const SignUpForm = () => {
     return !Object.values(newErrors).some(error => error !== "");
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
 
-    if (validateForm()) {
-      console.log("Formulario válido:", formData);
+    try {
+      if (!validateForm()) return;
 
-      signUp(formData);
-    } else {
-      console.log("Formulario con errores:", errors);
+      await signUp(formData);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error al registrar usuario:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -108,7 +116,7 @@ export const SignUpForm = () => {
       <span className={classes(!!errors.password).errorText}>{errors.password}</span>
     </div>
 
-    <button className="btn btn-primary w-full bg-stone-800 hover:bg-stone-700 dark:bg-stone-200 dark:hover:bg-stone-300 dark:text-black text-white border-0">
+    <button className={classes().button} disabled={isLoading}>
       Crear cuenta
     </button>
   </form>;
