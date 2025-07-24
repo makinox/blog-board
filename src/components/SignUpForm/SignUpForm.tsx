@@ -70,6 +70,7 @@ export const SignUpForm = () => {
       const response = await signUp(formData);
       login(response.user, response.token);
       setIsLoading(false);
+      window.location.href = "/";
     } catch (error) {
       console.error("Error al registrar usuario:", error);
       setErrors({
