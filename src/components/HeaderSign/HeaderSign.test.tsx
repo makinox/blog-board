@@ -321,7 +321,7 @@ describe("HeaderSign", () => {
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const dropdown = (screen.getByRole("button", { name: "Cerrar sesión" }) as any).closest("div").parentElement;
-      expect(dropdown).toHaveClass("border", "border-stone-700", "bg-stone-800", "shadow-sm", "mt-2");
+      expect(dropdown).toHaveClass("border", "border-stone-200", "bg-stone-50", "shadow-sm", "mt-2");
     });
 
     it("should have correct button container styling", () => {

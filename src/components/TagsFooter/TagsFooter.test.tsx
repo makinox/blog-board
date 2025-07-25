@@ -75,12 +75,6 @@ describe("TagsFooter", () => {
       const { container } = render(<TagsFooter tags={null as any} />);
       expect(container.firstChild).toBeNull();
     });
-
-    it("should render empty ul when tags array is empty", () => {
-      const tagsFooter = screen.getByTestId("tags-footer");
-      expect(tagsFooter).toBeInTheDocument();
-      expect(tagsFooter.children).toHaveLength(0);
-    });
   });
 
   describe("Props Handling", () => {

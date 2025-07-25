@@ -77,7 +77,7 @@ export const SignUpForm = () => {
       const win = safeWindow();
       const isAuthPage = win?.location.pathname === "/auth";
       if (isAuthPage) win.location.href = "/";
-
+      else win?.location.reload();
     } catch (error) {
       console.error("Error al registrar usuario:", error);
       setErrors({

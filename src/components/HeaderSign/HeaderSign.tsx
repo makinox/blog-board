@@ -1,3 +1,4 @@
+import { safeWindow } from "@lib/utils";
 import { useAuthStore } from "@stores/authStore";
 import type { CSSProperties } from "react";
 
@@ -7,7 +8,11 @@ const popoverId = "popover-1";
 export const HeaderSign = () => {
   const { isAuthenticated, user, logout } = useAuthStore();
 
-  const handleLogout = () => logout();
+  const handleLogout = () => {
+    logout();
+    const win = safeWindow();
+    if (win?.location?.reload) win.location.reload();
+  };
 
   if (isAuthenticated) return (
     <>
