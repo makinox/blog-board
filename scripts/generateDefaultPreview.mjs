@@ -1,4 +1,4 @@
-import { generatePreviewImageForPost } from "../src/lib/generatePreviewImage.js";
+import { generatePreviewImageForPost } from "./generatePreviewImage.js";
 import path from "path";
 
 async function generateDefaultPreview() {

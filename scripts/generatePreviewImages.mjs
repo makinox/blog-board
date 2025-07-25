@@ -1,4 +1,4 @@
-import { generatePreviewImageForPost } from "../src/lib/generatePreviewImage.js";
+import { generatePreviewImageForPost } from "./generatePreviewImage.js";
 import path from "path";
 import fs from "fs/promises";
 
@@ -13,12 +13,12 @@ async function generateAllPreviewImages() {
     console.log(`📝 Found ${postFiles.length} posts to process`);
     
     const promises = postFiles.map(async (file) => {
-      const slug = file.replace(/\.(md|mdx)$/, "");
+      const slug = file.replace(/\.(md|mdx)$/, "").toLowerCase();
       const filePath = path.join(contentDir, file);
       const content = await fs.readFile(filePath, "utf-8");
 
       const titleMatch = content.match(/title:\s*["']([^"']+)["']/);
-      const title = titleMatch ? titleMatch[1] : slug;
+      const title = (titleMatch ? titleMatch[1] : slug).toLowerCase();
       
       const outputPath = path.join(
         process.cwd(), 
