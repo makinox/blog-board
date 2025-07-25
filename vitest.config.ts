@@ -16,6 +16,7 @@ export default defineConfig({
       "@lib": resolve(__dirname, "./src/lib"),
       "@stores": resolve(__dirname, "./src/stores"),
       "@controllers": resolve(__dirname, "./src/controllers"),
+      "@styles": resolve(__dirname, "./src/styles"),
     },
   },
 }); 

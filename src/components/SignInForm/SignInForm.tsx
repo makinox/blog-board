@@ -81,7 +81,7 @@ export const SignInForm = () => {
     }
   };
 
-  return <form id={AuthTabs.SignIn} className="space-y-4" onSubmit={handleSubmit}>
+  return <form id={AuthTabs.SignIn} data-testid="signin-form" className="space-y-4" onSubmit={handleSubmit}>
     <div className={classes().section}>
       <label className="label" htmlFor="email">
         <span className={sharedClasses.inputLabel}>Email</span>
