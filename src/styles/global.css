@@ -16,19 +16,48 @@ html.dark {
   color-scheme: dark;
 }
 
-article {
+.article {
   @apply max-w-full prose dark:prose-invert prose-img:mx-auto prose-img:my-auto;
   @apply prose-headings:font-semibold prose-p:font-serif;
   @apply prose-headings:text-black prose-headings:dark:text-white;
+  @apply prose-img:max-w-full prose-img:h-auto;
+  @apply prose-pre:max-w-full prose-pre:overflow-x-auto;
+  @apply prose-table:max-w-full prose-table:overflow-x-auto;
+  @apply prose-blockquote:max-w-full;
+  @apply prose-code:break-words;
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+.article * {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.article img,
+.article video,
+.article iframe,
+.article pre,
+.article code,
+.article table {
+  max-width: 100% !important;
+  height: auto !important;
+  overflow-x: auto;
+}
+
+.article pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 @layer utilities {
-  article a {
+  .article a {
     @apply font-sans text-current underline underline-offset-2;
     @apply decoration-black/15 dark:decoration-white/30;
     @apply transition-colors duration-300 ease-in-out;
   }
-  article a:hover {
+  .article a:hover {
     @apply text-black dark:text-white;
     @apply decoration-black/25 dark:decoration-white/50;
   }
@@ -51,6 +80,8 @@ article {
 .animate.show {
   @apply opacity-100 translate-y-0;
 }
+
+
 
 html #back-to-top {
   @apply opacity-0 pointer-events-none;
