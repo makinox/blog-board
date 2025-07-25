@@ -1,24 +1,24 @@
 import { useEffect, useState } from "react";
-import { FaBell } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 
 import { setReminder } from "@controllers/userPreferences/userPreferences";
 import { AuthForms } from "@components/AuthForms/AuthForms";
 import { useAuthStore } from "@stores/authStore";
 import { cn } from "@lib/utils";
 
-const modalId = "remind-modal";
+const modalId = "like-modal";
 
-export const RemindButton = () => {
+export const LikeButton = () => {
   const { isAuthenticated } = useAuthStore();
   const [isClicked, setIsClicked] = useState(false);
 
   const classes = {
-    button: cn("btn btn-outline hover:btn-success btn-xs relative text-nowrap transition-all duration-300 ease-in-out", {
-      "btn-success": isClicked,
+    button: cn("btn btn-outline hover:btn-error btn-xs relative text-nowrap transition-all duration-300 ease-in-out", {
+      "btn-error": isClicked,
     })
   };
 
-  const handleRemind = () => {
+  const handleLike = () => {
     if (isAuthenticated) {
       setIsClicked(true);
       setReminder();
@@ -37,21 +37,19 @@ export const RemindButton = () => {
     if (!modal.open) return;
 
     modal.close();
-    handleRemind();
+    handleLike();
 
   }, [isAuthenticated]);
 
   return (
     <>
-      <div className="tooltip tooltip-bottom" data-tip="Se te enviará un recordatorio a tu correo">
-        <button onClick={handleRemind} className={classes.button}>
-          <span>{isClicked ? "Recordando..." : "Recordar"}</span>
-          <FaBell />
-        </button>
-      </div>
+      <button onClick={handleLike} className={classes.button}>
+        <span>{isClicked ? "Me gusta..." : "Me gusta"}</span>
+        <FaHeart />
+      </button>
       <dialog id={modalId} className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg mb-10">Para poder recordarte debes iniciar sesión</h3>
+          <h3 className="font-bold text-lg mb-10">Para poder marcar como favorito debes iniciar sesión</h3>
           <AuthForms />
 
           <div className="modal-action">

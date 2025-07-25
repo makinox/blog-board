@@ -16,7 +16,7 @@ export const HeaderSign = () => {
           <span className="text-base">{user?.name.charAt(0).toUpperCase()}</span>
         </div>
       </button>
-      <div tabIndex={0} className="dropdown dropdown-end menu w-52 rounded-box border border-stone-700 bg-stone-800 shadow-sm mt-2"
+      <div tabIndex={0} className="dropdown dropdown-end menu w-52 rounded-box border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800 shadow-sm mt-2"
         popover="auto" id={popoverId} style={{ "position-anchor": anchor } as CSSProperties}>
         <h3 className="text-center">Hola {user?.name}</h3>
         <div className="flex items-center">
