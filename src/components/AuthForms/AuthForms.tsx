@@ -20,7 +20,8 @@ export const AuthForms = () => {
     setActiveTab(tab);
 
     const win = safeWindow();
-    if (win) win.location.hash = tab;
+    const isAuthPage = win?.location.pathname.includes("/auth");
+    if (win && isAuthPage) win.location.hash = tab;
 
   };
 
