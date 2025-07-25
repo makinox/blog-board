@@ -1,5 +1,6 @@
 ---
-import {ShareButton} from "@components/ShareButton";
+import { ShareButton } from "@components/ShareButton";
+import { RemindButton } from "@components/RemindButton/RemindButton";
 
 const {post} = Astro.props;
 ---
@@ -12,6 +13,7 @@ const {post} = Astro.props;
     <p class="text-sm">{post.data.authorDescription}</p>
     <div class="mt-2">
       <ShareButton client:visible />
+      <RemindButton client:visible />
     </div>
   </div>
 </section>

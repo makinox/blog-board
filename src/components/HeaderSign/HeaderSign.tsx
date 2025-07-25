@@ -7,10 +7,7 @@ const popoverId = "popover-1";
 export const HeaderSign = () => {
   const { isAuthenticated, user, logout } = useAuthStore();
 
-  const handleLogout = () => {
-    logout();
-    window.location.href = "/";
-  };
+  const handleLogout = () => logout();
 
   if (isAuthenticated) return (
     <>

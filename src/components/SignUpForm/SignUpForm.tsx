@@ -3,7 +3,7 @@ import { useState } from "react";
 import { sharedClasses } from "@styles/sharedClasses";
 import { signUp } from "@controllers/signUp/signUp";
 import { useAuthStore } from "@stores/authStore";
-import { cn } from "@lib/utils";
+import { cn, safeWindow } from "@lib/utils";
 
 import { AuthTabs } from "../AuthForms/AuthFormTabs";
 
@@ -70,7 +70,11 @@ export const SignUpForm = () => {
       const response = await signUp(formData);
       login(response.user, response.token);
       setIsLoading(false);
-      window.location.href = "/";
+
+      const win = safeWindow();
+      const isAuthPage = win?.location.pathname === "/auth";
+      if (isAuthPage) win.location.href = "/";
+
     } catch (error) {
       console.error("Error al registrar usuario:", error);
       setErrors({

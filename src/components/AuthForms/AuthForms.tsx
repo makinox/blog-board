@@ -2,12 +2,12 @@ import { Fragment, useState } from "react";
 
 import { SignInForm } from "@components/SignInForm/SignInForm";
 import { SignUpForm } from "@components/SignUpForm/SignUpForm";
-import { cn } from "@lib/utils";
+import { cn, safeWindow } from "@lib/utils";
 
 import { AuthTabs } from "./AuthFormTabs";
 
 export const AuthForms = () => {
-  const defaultTab = window.location.hash.split("#")[1] || AuthTabs.SignIn;
+  const defaultTab = safeWindow()?.location.hash.split("#")[1] || AuthTabs.SignIn;
   const [activeTab, setActiveTab] = useState(defaultTab);
 
   const classes = (isActive: boolean) => ({
@@ -18,7 +18,10 @@ export const AuthForms = () => {
 
   const handleTabClick = (tab: AuthTabs) => {
     setActiveTab(tab);
-    window.location.hash = tab;
+
+    const win = safeWindow();
+    if (win) win.location.hash = tab;
+
   };
 
   return <Fragment>

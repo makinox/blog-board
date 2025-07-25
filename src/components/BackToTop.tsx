@@ -1,10 +1,10 @@
+import { safeWindow } from "@lib/utils";
 import { FaChevronUp } from "react-icons/fa";
-
 
 export const BackToTop = () => {
 
   const handleClick = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    safeWindow()?.scrollTo({ top: 0, behavior: "smooth" });
   };
 
 

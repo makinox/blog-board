@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { useAuthStore } from "@stores/authStore";
+import { safeWindow } from "@lib/utils";
 
 interface AuthHeaderProps {
   redirectIfAuthenticated?: boolean;
@@ -18,11 +19,13 @@ export const AuthHeader = ({
       return;
     }
     if (user && redirectIfAuthenticated) {
-      window.location.href = "/";
+      const win = safeWindow();
+      if (win) win.location.href = "/";
       return;
     }
     if (!user && !redirectIfAuthenticated) {
-      window.location.href = "/auth";
+      const win = safeWindow();
+      if (win) win.location.href = "/auth";
       return;
     }
   }, [retry, user]);

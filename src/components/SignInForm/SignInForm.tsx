@@ -3,7 +3,7 @@ import { useState } from "react";
 import { sharedClasses } from "@styles/sharedClasses";
 import { signIn } from "@controllers/signIn/signIn";
 import { useAuthStore } from "@stores/authStore";
-import { cn } from "@lib/utils";
+import { cn, safeWindow } from "@lib/utils";
 
 import { AuthTabs } from "../AuthForms/AuthFormTabs";
 
@@ -66,7 +66,10 @@ export const SignInForm = () => {
       const response = await signIn(formData);
       login(response.user, response.token);
       setIsLoading(false);
-      window.location.href = "/";
+
+      const win = safeWindow();
+      const isAuthPage = win?.location.pathname === "/auth";
+      if (isAuthPage) win.location.href = "/";
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
       setErrors({

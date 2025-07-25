@@ -40,3 +40,8 @@ export function dateRange(startDate: Date, endDate?: Date | string): string {
 }
 
 export const formatTag = (tag: string) => tag.toLowerCase().replace(/ /g, "-");
+
+export const safeWindow = () => {
+  if (typeof window === "undefined") return null;
+  return window as Window;
+};

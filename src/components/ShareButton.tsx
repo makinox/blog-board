@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { FaShare, FaLink } from "react-icons/fa";
 
+import { safeWindow } from "@lib/utils";
+
 export const ShareButton = () => {
   const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = () => {
     setIsClicked(true);
-    navigator.clipboard.writeText(window.location.href);
+    navigator.clipboard.writeText(safeWindow()?.location.href || "");
 
     setTimeout(() => { setIsClicked(false); }, 2000);
   };
