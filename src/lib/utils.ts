@@ -46,4 +46,8 @@ export const safeWindow = () => {
   return window as Window;
 };
 
-export const getCurrentBlogUrl = () => safeWindow()?.location.href.split("/").pop() || "";
+export const getCurrentBlogUrl = () => {
+  const win = safeWindow();
+  const cleanLastSlash = win?.location.href.charAt(win?.location.href.length - 1) === "/" ? win?.location.href.split("/").at(-2) : win?.location.href.split("/").pop();
+  return cleanLastSlash || "";
+};
