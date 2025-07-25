@@ -2,17 +2,17 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import React from "react";
 
-// Mock Astro globals
-const mockAstro = {
-  url: new URL("https://example.com/test-page"),
-  site: "https://example.com",
-  generator: "Astro",
-  props: {
-    title: "Test Title",
-    description: "Test Description",
-    image: "/test-image.png"
-  }
-};
+// Mock Astro globals (unused but kept for reference)
+// const mockAstro = {
+//   url: new URL("https://example.com/test-page"),
+//   site: "https://example.com",
+//   generator: "Astro",
+//   props: {
+//     title: "Test Title",
+//     description: "Test Description",
+//     image: "/test-image.png"
+//   }
+// };
 
 // Mock font imports
 vi.mock("@fontsource/inter/latin-400.css", () => ({}));
@@ -180,35 +180,35 @@ describe("Head", () => {
     it("should include charset meta tag", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
-      const charsetMeta = document.querySelector('meta[charset="utf-8"]');
+      const charsetMeta = document.querySelector("meta[charset=\"utf-8\"]");
       expect(charsetMeta).toBeInTheDocument();
     });
 
     it("should include viewport meta tag", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
-      const viewportMeta = document.querySelector('meta[name="viewport"]');
+      const viewportMeta = document.querySelector("meta[name=\"viewport\"]");
       expect(viewportMeta).toHaveAttribute("content", "width=device-width,initial-scale=1");
     });
 
     it("should include generator meta tag", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
-      const generatorMeta = document.querySelector('meta[name="generator"]');
+      const generatorMeta = document.querySelector("meta[name=\"generator\"]");
       expect(generatorMeta).toHaveAttribute("content", "Astro");
     });
 
     it("should include title meta tag", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
-      const titleMeta = document.querySelector('meta[name="title"]');
+      const titleMeta = document.querySelector("meta[name=\"title\"]");
       expect(titleMeta).toHaveAttribute("content", "Test Title");
     });
 
     it("should include description meta tag", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
-      const descriptionMeta = document.querySelector('meta[name="description"]');
+      const descriptionMeta = document.querySelector("meta[name=\"description\"]");
       expect(descriptionMeta).toHaveAttribute("content", "Test Description");
     });
   });
@@ -241,7 +241,7 @@ describe("Head", () => {
     it("should include favicon link", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
-      const favicon = document.querySelector('link[rel="icon"]');
+      const favicon = document.querySelector("link[rel=\"icon\"]");
       expect(favicon).toHaveAttribute("href", "/logo.svg");
       expect(favicon).toHaveAttribute("type", "image/x-icon");
     });
@@ -251,8 +251,8 @@ describe("Head", () => {
     it("should include Inter font preloads", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
-      const inter400Preload = document.querySelector('link[href="/fonts/inter-400.woff2"]');
-      const inter600Preload = document.querySelector('link[href="/fonts/inter-600.woff2"]');
+      const inter400Preload = document.querySelector("link[href=\"/fonts/inter-400.woff2\"]");
+      const inter600Preload = document.querySelector("link[href=\"/fonts/inter-600.woff2\"]");
 
       expect(inter400Preload).toHaveAttribute("rel", "preload");
       expect(inter400Preload).toHaveAttribute("as", "font");
@@ -268,8 +268,8 @@ describe("Head", () => {
     it("should include Lora font preloads", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
-      const lora400Preload = document.querySelector('link[href="/fonts/lora-400.woff2"]');
-      const lora600Preload = document.querySelector('link[href="/fonts/lora-600.woff2"]');
+      const lora400Preload = document.querySelector("link[href=\"/fonts/lora-400.woff2\"]");
+      const lora600Preload = document.querySelector("link[href=\"/fonts/lora-600.woff2\"]");
 
       expect(lora400Preload).toHaveAttribute("rel", "preload");
       expect(lora400Preload).toHaveAttribute("as", "font");
@@ -287,7 +287,7 @@ describe("Head", () => {
     it("should include canonical link", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
-      const canonical = document.querySelector('link[rel="canonical"]');
+      const canonical = document.querySelector("link[rel=\"canonical\"]");
       expect(canonical).toHaveAttribute("href", "https://example.com/test-page");
     });
   });
@@ -296,35 +296,35 @@ describe("Head", () => {
     it("should include Open Graph type meta tag", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
-      const ogType = document.querySelector('meta[property="og:type"]');
+      const ogType = document.querySelector("meta[property=\"og:type\"]");
       expect(ogType).toHaveAttribute("content", "website");
     });
 
     it("should include Open Graph URL meta tag", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
-      const ogUrl = document.querySelector('meta[property="og:url"]');
+      const ogUrl = document.querySelector("meta[property=\"og:url\"]");
       expect(ogUrl).toHaveAttribute("content", "https://example.com/test-page");
     });
 
     it("should include Open Graph title meta tag", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
-      const ogTitle = document.querySelector('meta[property="og:title"]');
+      const ogTitle = document.querySelector("meta[property=\"og:title\"]");
       expect(ogTitle).toHaveAttribute("content", "Test Title");
     });
 
     it("should include Open Graph description meta tag", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
-      const ogDescription = document.querySelector('meta[property="og:description"]');
+      const ogDescription = document.querySelector("meta[property=\"og:description\"]");
       expect(ogDescription).toHaveAttribute("content", "Test Description");
     });
 
     it("should include Open Graph image meta tag with default image", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
-      const ogImage = document.querySelector('meta[property="og:image"]');
+      const ogImage = document.querySelector("meta[property=\"og:image\"]");
       expect(ogImage).toHaveAttribute("content", "https://example.com/preview.png");
     });
 
@@ -337,7 +337,7 @@ describe("Head", () => {
         />
       );
 
-      const ogImage = document.querySelector('meta[property="og:image"]');
+      const ogImage = document.querySelector("meta[property=\"og:image\"]");
       expect(ogImage).toHaveAttribute("content", "https://example.com/custom-image.jpg");
     });
   });
@@ -346,35 +346,35 @@ describe("Head", () => {
     it("should include Twitter card meta tag", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
-      const twitterCard = document.querySelector('meta[property="twitter:card"]');
+      const twitterCard = document.querySelector("meta[property=\"twitter:card\"]");
       expect(twitterCard).toHaveAttribute("content", "summary_large_image");
     });
 
     it("should include Twitter URL meta tag", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
-      const twitterUrl = document.querySelector('meta[property="twitter:url"]');
+      const twitterUrl = document.querySelector("meta[property=\"twitter:url\"]");
       expect(twitterUrl).toHaveAttribute("content", "https://example.com/test-page");
     });
 
     it("should include Twitter title meta tag", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
-      const twitterTitle = document.querySelector('meta[property="twitter:title"]');
+      const twitterTitle = document.querySelector("meta[property=\"twitter:title\"]");
       expect(twitterTitle).toHaveAttribute("content", "Test Title");
     });
 
     it("should include Twitter description meta tag", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
-      const twitterDescription = document.querySelector('meta[property="twitter:description"]');
+      const twitterDescription = document.querySelector("meta[property=\"twitter:description\"]");
       expect(twitterDescription).toHaveAttribute("content", "Test Description");
     });
 
     it("should include Twitter image meta tag with default image", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
-      const twitterImage = document.querySelector('meta[property="twitter:image"]');
+      const twitterImage = document.querySelector("meta[property=\"twitter:image\"]");
       expect(twitterImage).toHaveAttribute("content", "https://example.com/preview.png");
     });
 
@@ -387,7 +387,7 @@ describe("Head", () => {
         />
       );
 
-      const twitterImage = document.querySelector('meta[property="twitter:image"]');
+      const twitterImage = document.querySelector("meta[property=\"twitter:image\"]");
       expect(twitterImage).toHaveAttribute("content", "https://example.com/custom-twitter-image.jpg");
     });
   });
@@ -396,21 +396,21 @@ describe("Head", () => {
     it("should include transition script", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
-      const transitionScript = document.querySelector('script[data-testid="transition-script"]');
+      const transitionScript = document.querySelector("script[data-testid=\"transition-script\"]");
       expect(transitionScript).toBeInTheDocument();
     });
 
     it("should include inline script", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
-      const inlineScript = document.querySelector('script[data-testid="inline-script"]');
+      const inlineScript = document.querySelector("script[data-testid=\"inline-script\"]");
       expect(inlineScript).toBeInTheDocument();
     });
 
     it("should include ViewTransitions placeholder", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
-      const viewTransitions = document.querySelector('div[data-testid="view-transitions"]');
+      const viewTransitions = document.querySelector("div[data-testid=\"view-transitions\"]");
       expect(viewTransitions).toBeInTheDocument();
     });
   });
@@ -428,7 +428,7 @@ describe("Head", () => {
       const longDescription = "This is a very long description that provides detailed information about the page content and could be used for SEO purposes to help search engines understand what the page is about";
       render(<Head title="Test Title" description={longDescription} />);
 
-      const descriptionMeta = document.querySelector('meta[name="description"]');
+      const descriptionMeta = document.querySelector("meta[name=\"description\"]");
       expect(descriptionMeta).toHaveAttribute("content", longDescription);
     });
 
@@ -436,7 +436,7 @@ describe("Head", () => {
       const specialDescription = "Description with & < > \" ' © ® ™ characters";
       render(<Head title="Test Title" description={specialDescription} />);
 
-      const descriptionMeta = document.querySelector('meta[name="description"]');
+      const descriptionMeta = document.querySelector("meta[name=\"description\"]");
       expect(descriptionMeta).toHaveAttribute("content", specialDescription);
     });
 
@@ -449,7 +449,7 @@ describe("Head", () => {
         />
       );
 
-      const ogImage = document.querySelector('meta[property="og:image"]');
+      const ogImage = document.querySelector("meta[property=\"og:image\"]");
       expect(ogImage).toHaveAttribute("content", "https://example.com/image.jpg?v=123&w=800");
     });
 
@@ -462,7 +462,7 @@ describe("Head", () => {
         />
       );
 
-      const ogImage = document.querySelector('meta[property="og:image"]');
+      const ogImage = document.querySelector("meta[property=\"og:image\"]");
       expect(ogImage).toHaveAttribute("content", "https://external.com/image.jpg");
     });
   });
@@ -471,28 +471,28 @@ describe("Head", () => {
     it("should handle empty description", () => {
       render(<Head title="Test Title" description="" />);
 
-      const descriptionMeta = document.querySelector('meta[name="description"]');
+      const descriptionMeta = document.querySelector("meta[name=\"description\"]");
       expect(descriptionMeta).toHaveAttribute("content", "");
     });
 
     it("should handle undefined image prop", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
-      const ogImage = document.querySelector('meta[property="og:image"]');
+      const ogImage = document.querySelector("meta[property=\"og:image\"]");
       expect(ogImage).toHaveAttribute("content", "https://example.com/preview.png");
     });
 
     it("should handle empty image prop", () => {
       render(<Head title="Test Title" description="Test Description" image="" />);
 
-      const ogImage = document.querySelector('meta[property="og:image"]');
+      const ogImage = document.querySelector("meta[property=\"og:image\"]");
       expect(ogImage).toHaveAttribute("content", "https://example.com/");
     });
 
     it("should handle image prop with only slash", () => {
       render(<Head title="Test Title" description="Test Description" image="/" />);
 
-      const ogImage = document.querySelector('meta[property="og:image"]');
+      const ogImage = document.querySelector("meta[property=\"og:image\"]");
       expect(ogImage).toHaveAttribute("content", "https://example.com/");
     });
   });
@@ -502,28 +502,28 @@ describe("Head", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
       // Check for essential meta tags
-      expect(document.querySelector('meta[charset="utf-8"]')).toBeInTheDocument();
-      expect(document.querySelector('meta[name="viewport"]')).toBeInTheDocument();
-      expect(document.querySelector('meta[name="description"]')).toBeInTheDocument();
-      expect(document.querySelector('link[rel="canonical"]')).toBeInTheDocument();
+      expect(document.querySelector("meta[charset=\"utf-8\"]")).toBeInTheDocument();
+      expect(document.querySelector("meta[name=\"viewport\"]")).toBeInTheDocument();
+      expect(document.querySelector("meta[name=\"description\"]")).toBeInTheDocument();
+      expect(document.querySelector("link[rel=\"canonical\"]")).toBeInTheDocument();
     });
 
     it("should include all social media meta tags", () => {
       render(<Head title="Test Title" description="Test Description" />);
 
       // Check for Open Graph tags
-      expect(document.querySelector('meta[property="og:type"]')).toBeInTheDocument();
-      expect(document.querySelector('meta[property="og:url"]')).toBeInTheDocument();
-      expect(document.querySelector('meta[property="og:title"]')).toBeInTheDocument();
-      expect(document.querySelector('meta[property="og:description"]')).toBeInTheDocument();
-      expect(document.querySelector('meta[property="og:image"]')).toBeInTheDocument();
+      expect(document.querySelector("meta[property=\"og:type\"]")).toBeInTheDocument();
+      expect(document.querySelector("meta[property=\"og:url\"]")).toBeInTheDocument();
+      expect(document.querySelector("meta[property=\"og:title\"]")).toBeInTheDocument();
+      expect(document.querySelector("meta[property=\"og:description\"]")).toBeInTheDocument();
+      expect(document.querySelector("meta[property=\"og:image\"]")).toBeInTheDocument();
 
       // Check for Twitter tags
-      expect(document.querySelector('meta[property="twitter:card"]')).toBeInTheDocument();
-      expect(document.querySelector('meta[property="twitter:url"]')).toBeInTheDocument();
-      expect(document.querySelector('meta[property="twitter:title"]')).toBeInTheDocument();
-      expect(document.querySelector('meta[property="twitter:description"]')).toBeInTheDocument();
-      expect(document.querySelector('meta[property="twitter:image"]')).toBeInTheDocument();
+      expect(document.querySelector("meta[property=\"twitter:card\"]")).toBeInTheDocument();
+      expect(document.querySelector("meta[property=\"twitter:url\"]")).toBeInTheDocument();
+      expect(document.querySelector("meta[property=\"twitter:title\"]")).toBeInTheDocument();
+      expect(document.querySelector("meta[property=\"twitter:description\"]")).toBeInTheDocument();
+      expect(document.querySelector("meta[property=\"twitter:image\"]")).toBeInTheDocument();
     });
 
     it("should have consistent title across all meta tags", () => {
@@ -531,9 +531,9 @@ describe("Head", () => {
       render(<Head title={testTitle} description="Test Description" />);
 
       const titleElement = document.querySelector("title");
-      const titleMeta = document.querySelector('meta[name="title"]');
-      const ogTitle = document.querySelector('meta[property="og:title"]');
-      const twitterTitle = document.querySelector('meta[property="twitter:title"]');
+      const titleMeta = document.querySelector("meta[name=\"title\"]");
+      const ogTitle = document.querySelector("meta[property=\"og:title\"]");
+      const twitterTitle = document.querySelector("meta[property=\"twitter:title\"]");
 
       expect(titleElement).toHaveTextContent(testTitle);
       expect(titleMeta).toHaveAttribute("content", testTitle);
@@ -545,9 +545,9 @@ describe("Head", () => {
       const testDescription = "Consistent Description Test";
       render(<Head title="Test Title" description={testDescription} />);
 
-      const descriptionMeta = document.querySelector('meta[name="description"]');
-      const ogDescription = document.querySelector('meta[property="og:description"]');
-      const twitterDescription = document.querySelector('meta[property="twitter:description"]');
+      const descriptionMeta = document.querySelector("meta[name=\"description\"]");
+      const ogDescription = document.querySelector("meta[property=\"og:description\"]");
+      const twitterDescription = document.querySelector("meta[property=\"twitter:description\"]");
 
       expect(descriptionMeta).toHaveAttribute("content", testDescription);
       expect(ogDescription).toHaveAttribute("content", testDescription);
