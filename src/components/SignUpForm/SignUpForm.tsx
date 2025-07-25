@@ -65,7 +65,10 @@ export const SignUpForm = () => {
     setIsLoading(true);
 
     try {
-      if (!validateForm()) return;
+      if (!validateForm()) {
+        setIsLoading(false);
+        return;
+      }
 
       const response = await signUp(formData);
       login(response.user, response.token);
@@ -86,7 +89,7 @@ export const SignUpForm = () => {
     }
   };
 
-  return <form id={AuthTabs.SignUp} className="space-y-4" onSubmit={handleSubmit}>
+  return <form id={AuthTabs.SignUp} data-testid="signup-form" className="space-y-4" onSubmit={handleSubmit}>
     <div className={classes().section}>
       <label className="label" htmlFor="name">
         <span className={sharedClasses.inputLabel}>Nombre completo</span>
@@ -133,7 +136,7 @@ export const SignUpForm = () => {
     </div>
 
 
-    <button className={classes().button} disabled={isLoading}>
+    <button type="submit" className={classes().button} disabled={isLoading}>
       Crear cuenta
     </button>
     <span className={classes(!!errors.button).errorText}>{errors.button}</span>

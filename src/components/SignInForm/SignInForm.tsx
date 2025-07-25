@@ -115,7 +115,7 @@ export const SignInForm = () => {
       </label>
     </div>
 
-    <button className={classes().button} disabled={isLoading}>
+    <button type="submit" className={classes().button} disabled={isLoading}>
       Iniciar Sesión
     </button>
     <span className={classes(!!errors.button).errorText}>{errors.button}</span>
