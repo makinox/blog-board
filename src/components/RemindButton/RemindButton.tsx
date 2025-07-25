@@ -14,7 +14,7 @@ export const RemindButton = () => {
 
   const classes = {
     button: cn("btn btn-outline hover:btn-success btn-xs relative text-nowrap transition-all duration-300 ease-in-out", {
-      "btn-success": isClicked,
+      "btn-success animate-pulse cursor-not-allowed": isClicked,
     })
   };
 
@@ -22,7 +22,7 @@ export const RemindButton = () => {
     if (isAuthenticated) {
       setIsClicked(true);
       setReminder();
-      setTimeout(() => { setIsClicked(false); }, 2000);
+      setTimeout(() => { setIsClicked(false); }, 500);
       return;
     }
 

@@ -45,3 +45,5 @@ export const safeWindow = () => {
   if (typeof window === "undefined") return null;
   return window as Window;
 };
+
+export const getCurrentBlogUrl = () => safeWindow()?.location.href.split("/").pop() || "";
