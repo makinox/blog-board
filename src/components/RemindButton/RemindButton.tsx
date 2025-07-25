@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaBell } from "react-icons/fa";
 
+import { setReminder } from "@controllers/userPreferences/userPreferences";
 import { AuthForms } from "@components/AuthForms/AuthForms";
 import { useAuthStore } from "@stores/authStore";
 
@@ -13,6 +14,7 @@ export const RemindButton = () => {
   const handleRemind = () => {
     if (isAuthenticated) {
       setIsClicked(true);
+      setReminder();
       setTimeout(() => { setIsClicked(false); }, 2000);
       return;
     }
