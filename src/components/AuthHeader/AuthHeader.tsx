@@ -29,4 +29,6 @@ export const AuthHeader = ({
       return;
     }
   }, [retry, user]);
+
+  return null;
 };
