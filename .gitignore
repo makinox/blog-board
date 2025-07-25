@@ -24,3 +24,4 @@ pnpm-debug.log*
 public/previews/*
 src/content/blog/*
 src/content/blog
+.firebase

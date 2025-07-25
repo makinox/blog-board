@@ -6,7 +6,7 @@ import react from "@astrojs/react";
 import mdx from "@astrojs/mdx";
 
 export default defineConfig({
-  site: "https://astro-nano-demo.vercel.app",
+  site: "https://voib.jesusbossa.dev",
   integrations: [mdx(), sitemap(), react()],
   vite: {
     plugins: [tailwind()]

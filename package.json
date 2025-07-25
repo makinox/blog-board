@@ -8,6 +8,7 @@
     "fetch:remote": "node ./scripts/fetch-remote.js",
     "generate:previews": "node scripts/generateDefaultPreview.mjs && node scripts/generatePreviewImages.mjs",
     "build": "npm run generate:previews && astro check && astro build",
+    "deploy": "npm run build && firebase deploy",
     "preview": "astro preview",
     "preview:network": "astro preview --host",
     "astro": "astro",
