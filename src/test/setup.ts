@@ -9,6 +9,17 @@ Object.defineProperty(window, "location", {
   writable: true,
 });
 
+// Mock HTMLDialogElement methods for jsdom
+Object.defineProperty(HTMLDialogElement.prototype, "showModal", {
+  value: vi.fn(),
+  writable: true,
+});
+
+Object.defineProperty(HTMLDialogElement.prototype, "close", {
+  value: vi.fn(),
+  writable: true,
+});
+
 vi.mock("@lib/utils", async () => {
   const actual = await vi.importActual("@lib/utils");
   return {
