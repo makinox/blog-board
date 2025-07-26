@@ -16,7 +16,10 @@
     "lint:fix": "eslint . --fix",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "test:run": "vitest run"
+    "test:run": "vitest run",
+    "check": "./scripts/check-code.sh",
+    "setup-hooks": "./scripts/setup-hooks.sh",
+    "pre-commit": "yarn lint && yarn test:run"
   },
   "dependencies": {
     "@astrojs/check": "0.9.4",
