@@ -1,0 +1,34 @@
+---
+import ArrowCard from "@components/ArrowCard/ArrowCard.astro";
+
+interface Props {
+  relatedPosts: Array<{
+    slug: string;
+    data: {
+      title: string;
+    };
+  }>;
+}
+
+const { relatedPosts } = Astro.props;
+---
+
+{relatedPosts.length > 0 && (
+  <section class="py-4">
+    <div class="mx-auto">
+      <h3 class="text-xl font-bold mb-4">
+        Posts Relacionados
+      </h3>
+
+      <section class="animate space-y-6">
+        <ul class="flex flex-col gap-4">
+          {relatedPosts.map(post => (
+            <li>
+              <ArrowCard entry={post} />
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  </section>
+)} 

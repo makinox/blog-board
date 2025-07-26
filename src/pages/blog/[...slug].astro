@@ -8,6 +8,7 @@ import PostFooter from "@components/PostFooter/PostFooter.astro";
 import TagsFooter from "@components/TagsFooter/TagsFooter.astro";
 import Container from "@components/Container/Container.astro";
 import Footer from "@components/Footer/Footer.astro";
+import RelatedPosts from "@components/RelatedPosts/RelatedPosts.astro";
 
 import PageLayout from "@layouts/PageLayout.astro";
 
@@ -26,6 +27,26 @@ type Props = CollectionEntry<"blog">;
 const post = Astro.props;
 const { Content } = await post.render();
 const components = { img: CustomImage };
+
+const allPosts = await getCollection("blog");
+const relatedPosts = allPosts
+  .filter(p => p.slug !== post.slug)
+  .filter(p => {
+    const commonTags = post.data.tags.filter(tag => p.data.tags.includes(tag));
+    return commonTags.length > 0;
+  })
+  .sort((a, b) => {
+    const aCommonTags = post.data.tags.filter(tag => a.data.tags.includes(tag)).length;
+    const bCommonTags = post.data.tags.filter(tag => b.data.tags.includes(tag)).length;
+    return bCommonTags - aCommonTags;
+  })
+  .slice(0, 3);
+const cleanedRelatedPosts = relatedPosts.map((post) => ({
+  slug: post.slug,
+  data: {
+    title: post.data.title,
+  },
+}));
 ---
 
 <PageLayout title={post.data.title} description={post.data.title} slug={post.slug}>
@@ -53,6 +74,8 @@ const components = { img: CustomImage };
     
     <TagsFooter tags={post.data.tags} />
     <PostFooter post={post} />
+    <RelatedPosts relatedPosts={cleanedRelatedPosts} />
+    
     <Footer />
     
   </Container>
