@@ -1,14 +1,18 @@
 ---
-import { Image } from "astro:assets";
-const { src, alt = "", ...rest } = Astro.props;
+import BlurImage from "@components/BlurImage/BlurImage.astro";
+
+const { src, alt = "", class: className = "", ...rest } = Astro.props;
 ---
 
-<Image
+<BlurImage
   src={src}
   alt={alt}
-  width={600}
-  format="webp"
+  class={className}
+  quality={85}
+  placeholderQuality={20}
   loading="lazy"
-  decoding="async"
+  blurAmount={8}
+  transitionDuration={500}
+  fallbackDelay={2000}
   {...rest}
 />

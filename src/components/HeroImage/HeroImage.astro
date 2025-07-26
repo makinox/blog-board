@@ -1,0 +1,27 @@
+---
+import BlurImage from "@components/BlurImage/BlurImage.astro";
+
+interface Props {
+  src: string;
+  alt: string;
+  class?: string;
+  width?: number;
+  height?: number;
+}
+
+const { src, alt, class: className = "", width = 1280, height = 720 } = Astro.props;
+---
+
+<BlurImage
+  src={src}
+  alt={alt}
+  class={className}
+  width={width}
+  height={height}
+  quality={90}
+  placeholderQuality={10}
+  loading="eager"
+  blurAmount={20}
+  transitionDuration={700}
+  fallbackDelay={3000}
+/> 
