@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { cookieStorage } from "@lib/cookies";
 
 export interface AuthState {
   user: User | null;
@@ -65,11 +66,12 @@ export const useAuthStore = create<AuthStore>()(
     }),
     {
       name: "auth-storage",
+      storage: cookieStorage,
       partialize: (state) => ({ 
         user: state.user, 
         token: state.token, 
         isAuthenticated: state.isAuthenticated 
-      })
+      } as Partial<AuthState>)
     }
   )
 ); 

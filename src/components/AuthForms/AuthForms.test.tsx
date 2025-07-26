@@ -131,6 +131,7 @@ describe("AuthForms", () => {
       const mockLocation = {
         hash: "",
         href: "http://localhost:3000",
+        pathname: "/auth",
       };
 
       Object.defineProperty(window, "location", {
