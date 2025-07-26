@@ -113,11 +113,11 @@ describe("SignInForm", () => {
       expect(label).toHaveClass("label");
     });
 
-    it("should have href attribute set to #", () => {
+    it("should have href attribute set to /forgot-password", () => {
       render(<SignInForm />);
 
       const forgotPasswordLink = screen.getByText("¿Olvidaste tu contraseña?");
-      expect(forgotPasswordLink).toHaveAttribute("href", "#");
+      expect(forgotPasswordLink).toHaveAttribute("href", "/forgot-password");
     });
 
     it("should be clickable", () => {

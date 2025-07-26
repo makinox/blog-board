@@ -112,7 +112,7 @@ export const SignInForm = () => {
       />
       <span className={classes(!!errors.password).errorText}>{errors.password}</span>
       <label className="label">
-        <a href="#" className="label-text-alt link link-hover text-stone-500 dark:text-stone-400 mt-1">¿Olvidaste tu contraseña?</a>
+        <a href="/forgot-password" className="label-text-alt link link-hover text-stone-500 dark:text-stone-400 mt-1">¿Olvidaste tu contraseña?</a>
       </label>
     </div>
 
