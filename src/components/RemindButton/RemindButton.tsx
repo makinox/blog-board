@@ -17,7 +17,8 @@ export const RemindButton = () => {
   const classes = {
     button: cn("btn hover:btn-success btn-xs relative text-nowrap transition-all duration-300 ease-in-out", {
       "btn-success btn-outline animate-pulse cursor-not-allowed": isClicked,
-      "btn-success": notifyNewBlogs
+      "btn-success": notifyNewBlogs,
+      "btn-outline": !notifyNewBlogs
     })
   };
 
