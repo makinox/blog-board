@@ -88,6 +88,7 @@ describe("LikeButton", () => {
     // Default blog store mock
     mockUseBlogStore.mockReturnValue({
       blogs: [],
+      setNotifyNewBlogs: vi.fn(),
       setBlogs: vi.fn(),
       addBlog: mockAddBlog,
       getBlog: vi.fn(),
@@ -236,6 +237,7 @@ describe("LikeButton", () => {
       mockUseBlogStore.mockReturnValue({
         blogs: [{ page_url: "http://localhost:3000/test-blog", likes: 5, isLiked: true }],
         setBlogs: vi.fn(),
+        setNotifyNewBlogs: vi.fn(),
         addBlog: mockAddBlog,
         getBlog: vi.fn(),
       });
@@ -285,6 +287,7 @@ describe("LikeButton", () => {
         blogs: [{ page_url: "http://localhost:3000/test-blog", likes: 5, isLiked: true }],
         setBlogs: vi.fn(),
         addBlog: mockAddBlog,
+        setNotifyNewBlogs: vi.fn(),
         getBlog: vi.fn(),
       });
 
@@ -328,6 +331,7 @@ describe("LikeButton", () => {
         blogs: [{ page_url: "http://localhost:3000/test-blog", likes: 5, isLiked: true }],
         setBlogs: vi.fn(),
         addBlog: mockAddBlog,
+        setNotifyNewBlogs: vi.fn(),
         getBlog: vi.fn(),
       });
 
@@ -388,6 +392,7 @@ describe("LikeButton", () => {
         blogs: [{ page_url: "http://localhost:3000/test-blog", likes: 5, isLiked: true }],
         setBlogs: vi.fn(),
         addBlog: mockAddBlog,
+        setNotifyNewBlogs: vi.fn(),
         getBlog: vi.fn(),
       });
 
@@ -403,6 +408,7 @@ describe("LikeButton", () => {
         blogs: [{ page_url: "http://localhost:3000/test-blog", likes: 5, isLiked: false }],
         setBlogs: vi.fn(),
         addBlog: mockAddBlog,
+        setNotifyNewBlogs: vi.fn(),
         getBlog: vi.fn(),
       });
 

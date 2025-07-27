@@ -68,7 +68,7 @@ describe("RemindButton", () => {
       render(<RemindButton />);
 
       const button = screen.getByRole("button", { name: /recordar/i });
-      expect(button).toHaveClass("btn", "btn-outline", "hover:btn-success", "btn-xs");
+      expect(button).toHaveClass("btn", "hover:btn-success", "btn-xs");
     });
 
     it("should render bell icon", () => {
@@ -389,7 +389,6 @@ describe("RemindButton", () => {
       const button = screen.getByRole("button", { name: /recordar/i });
       expect(button).toHaveClass(
         "btn",
-        "btn-outline",
         "hover:btn-success",
         "btn-xs",
         "relative",

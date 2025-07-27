@@ -40,6 +40,7 @@ interface BlogLikesCountResponse {
     page_url: string;
     total_likes: number;
     user_liked: boolean;
+    user_notify_new_blogs: boolean;
   }
 }
 

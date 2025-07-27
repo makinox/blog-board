@@ -17,7 +17,7 @@ const updateBlogLikesFromStore = (blogs: Blog[]) => {
 export const LikeButton = () => {
   const [isClicked, setIsClicked] = useState(false);
   const { isAuthenticated } = useAuthStore();
-  const { blogs, addBlog } = useBlogStore();
+  const { blogs, addBlog, setNotifyNewBlogs } = useBlogStore();
   const [isLiked, setIsLiked] = useState(updateBlogLikesFromStore(blogs));
 
   const classes = {
@@ -65,6 +65,7 @@ export const LikeButton = () => {
       likes: response.data.total_likes,
       isLiked: response.data.user_liked,
     });
+    setNotifyNewBlogs(response.data.user_notify_new_blogs);
     setIsLiked(response.data.user_liked);
   };
 

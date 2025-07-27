@@ -5,24 +5,28 @@ import { setReminder } from "@controllers/userPreferences/userPreferences";
 import { AuthForms } from "@components/AuthForms/AuthForms";
 import { useAuthStore } from "@stores/authStore";
 import { cn } from "@lib/utils";
+import { useBlogStore } from "@stores/blogStore";
 
 const modalId = "remind-modal";
 
 export const RemindButton = () => {
   const { isAuthenticated } = useAuthStore();
   const [isClicked, setIsClicked] = useState(false);
+  const { notifyNewBlogs, setNotifyNewBlogs } = useBlogStore();
 
   const classes = {
-    button: cn("btn btn-outline hover:btn-success btn-xs relative text-nowrap transition-all duration-300 ease-in-out", {
-      "btn-success animate-pulse cursor-not-allowed": isClicked,
+    button: cn("btn hover:btn-success btn-xs relative text-nowrap transition-all duration-300 ease-in-out", {
+      "btn-success btn-outline animate-pulse cursor-not-allowed": isClicked,
+      "btn-success": notifyNewBlogs
     })
   };
 
   const handleRemind = () => {
+    if (notifyNewBlogs) return;
     if (isAuthenticated) {
       setIsClicked(true);
       setReminder();
-      setTimeout(() => { setIsClicked(false); }, 500);
+      setTimeout(() => { setIsClicked(false); setNotifyNewBlogs(true); }, 500);
       return;
     }
 

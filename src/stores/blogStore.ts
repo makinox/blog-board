@@ -7,14 +7,18 @@ export interface Blog {
 }
 
 export interface BlogStore {
+  notifyNewBlogs: boolean;
   blogs: Blog[];
+  setNotifyNewBlogs: (notifyNewBlogs: boolean) => void;
   setBlogs: (blogs: Blog[]) => void;
   addBlog: (blog: Partial<Blog>) => void;
   getBlog: (page_url: string) => Blog | undefined;
 }
 
 export const useBlogStore = create<BlogStore>((set, get) => ({
+  notifyNewBlogs: false,
   blogs: [],
+  setNotifyNewBlogs: (notifyNewBlogs: boolean) => set({ notifyNewBlogs }),
   setBlogs: (blogs: Blog[]) => set({ blogs }),
   addBlog: (blog: Partial<Blog>) => set((state) => {
     const currentBlogs = state.blogs;
