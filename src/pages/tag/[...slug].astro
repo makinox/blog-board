@@ -2,7 +2,7 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 
 import Container from "@components/Container/Container.astro";
-import ArrowCard from "@components/ArrowCard/ArrowCard.astro";
+import {ArrowCard} from "@components/ArrowCard/ArrowCard";
 import Footer from "@components/Footer/Footer.astro";
 
 import PageLayout from "@layouts/PageLayout.astro";
@@ -40,7 +40,7 @@ const { posts } = Astro.props;
         <ul class="flex flex-col gap-4">
           {posts.map(post => (
             <li>
-              <ArrowCard entry={post} />
+              <ArrowCard title={post.data.title} slug={post.slug} />
             </li>
           ))}
         </ul>

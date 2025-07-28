@@ -24,8 +24,11 @@ export const HeaderSign = () => {
       <div tabIndex={0} className="dropdown dropdown-end menu w-52 rounded-box border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800 shadow-sm mt-2"
         popover="auto" id={popoverId} style={{ "positionAnchor": anchor } as CSSProperties}>
         <h3 className="text-center">Hola {user?.name}</h3>
-        <div className="flex items-center">
-          <button className="btn btn-error btn-outline btn-xs mx-auto mt-4 mb-2" onClick={handleLogout}>Cerrar sesión</button>
+        <div className="flex flex-col gap-2 px-4 mt-2">
+          <a href="/my-likes" className="btn btn-outline btn-xs hover:btn-info">
+            Mis Likes
+          </a>
+          <button className="btn btn-error btn-outline btn-xs" onClick={handleLogout}>Cerrar sesión</button>
         </div>
       </div>
     </>

@@ -49,3 +49,17 @@ export const getBlogLikes = async (): Promise<BlogLikesCountResponse> => {
   const query = `/count?page_url=${page_url}`;
   return await globalController(path + query, "GET");
 };
+
+interface UserLikesResponse {
+  success: boolean;
+  message: string;
+  data: Array<{
+    id: number;
+    page_url: string;
+    created_at: string;
+  }>
+}
+
+export const getUserLikes = async (): Promise<UserLikesResponse> => {
+  return await globalController(`${path}/user`, "GET");
+};

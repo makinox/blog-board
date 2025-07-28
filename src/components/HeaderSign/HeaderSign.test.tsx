@@ -334,7 +334,7 @@ describe("HeaderSign", () => {
       render(<HeaderSign />);
 
       const buttonContainer = screen.getByRole("button", { name: "Cerrar sesión" }).closest("div");
-      expect(buttonContainer).toHaveClass("flex", "items-center");
+      expect(buttonContainer).toHaveClass("flex", "flex-col");
     });
   });
 }); 

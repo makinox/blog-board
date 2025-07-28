@@ -1,5 +1,5 @@
 ---
-import ArrowCard from "@components/ArrowCard/ArrowCard.astro";
+import { ArrowCard } from "@components/ArrowCard/ArrowCard";
 
 interface Props {
   relatedPosts: Array<{
@@ -24,7 +24,7 @@ const { relatedPosts } = Astro.props;
         <ul class="flex flex-col gap-4">
           {relatedPosts.map(post => (
             <li>
-              <ArrowCard entry={post} />
+              <ArrowCard title={post.data.title} slug={post.slug} />
             </li>
           ))}
         </ul>

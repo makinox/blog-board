@@ -1,0 +1,32 @@
+---
+import Container from "@components/Container/Container.astro";
+import Footer from "@components/Footer/Footer.astro";
+import PageLayout from "@layouts/PageLayout.astro";
+import { UserLikesList } from "@components/UserLikesList/UserLikesList";
+import { AuthHeader } from "@components/AuthHeader/AuthHeader";
+
+const PAGE = {
+  TITLE: "Mis Likes",
+  DESCRIPTION: "Posts que te han gustado en Voib",
+};
+---
+
+<PageLayout title={PAGE.TITLE} description={PAGE.DESCRIPTION}>
+  <AuthHeader client:load redirectIfAuthenticated={false} />
+  <Container>
+    <div class="py-8">
+      <div class="max-w-4xl mx-auto">
+        <div class="my-8">
+          <h1 class="text-3xl font-bold text-black dark:text-white mb-2">Mis me gusta</h1>
+          <p class="text-stone-600 dark:text-stone-400">
+            Aquí puedes ver todos los posts que te han gustado
+          </p>
+        </div>
+
+        <UserLikesList client:load />
+      </div>
+    </div>
+  </Container>
+
+  <Footer />
+</PageLayout> 
