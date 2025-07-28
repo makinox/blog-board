@@ -1,5 +1,21 @@
-Astro Nano is a static, minimalist, lightweight, lightning fast portfolio and blog theme.
+# Blog Board 📝
 
-Built with Astro, Tailwind and Typescript, an no frameworks.
+Used:
 
-It was designed as an even more minimal theme than my popular theme [Astro Sphere](https://github.com/markhorn-dev/astro-sphere)
+* Astro
+* React
+* TypeScript
+* Tailwind CSS
+* Firebase
+
+Link to blog!
+
+![Image of portfolio](./public/preview.webp)
+
+## About
+
+Personal blog and portfolio built with modern web technologies. Features authentication, likes system, and responsive design.
+
+### Topics
+
+astro  blog  react  typescript  tailwind  firebase  portfolio

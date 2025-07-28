@@ -42,8 +42,6 @@ export const UserLikesList = () => {
     fetchLikes();
   }, [isAuthenticated]);
 
-  console.log(likes);
-
   if (loading) {
     return (
       <div className="flex justify-center items-center py-8">
