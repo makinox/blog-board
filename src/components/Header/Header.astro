@@ -1,7 +1,7 @@
 ---
 import { HeaderSign } from "@components/HeaderSign/HeaderSign";
 import Container from "@components/Container/Container.astro";
-import { SITE } from "@consts";
+import { API_ACTIVE, SITE } from "@consts";
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 py-1 bg-stone-100/75 dark:bg-stone-900/25 backdrop-blur-sm saturate-200">
@@ -13,8 +13,7 @@ import { SITE } from "@consts";
           {SITE.NAME}
         </div>
       </a>
-      
-      <HeaderSign client:only="react" />
+      {API_ACTIVE && <HeaderSign client:only="react" />}
     </div>
   </Container>
 </header>

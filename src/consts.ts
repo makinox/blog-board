@@ -47,3 +47,5 @@ export const SOCIALS: Socials = [
     HREF: "https://jesusbossa.dev",
   },
 ];
+
+export const API_ACTIVE = false;
