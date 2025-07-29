@@ -43,7 +43,7 @@ export const cookieStorage = createJSONStorage(() => ({
   },
 }));
 
-const getCookie = (name: string): string | null => {
+export const getCookie = (name: string): string | null => {
   if (typeof document === "undefined") return null;
   
   const cookieName = `${name}=`;

@@ -1,10 +1,25 @@
+import { getCookie } from "@lib/cookies";
 import { useAuthStore } from "@stores/authStore";
 
 const PUBLIC_API_ORIGIN = import.meta.env.PUBLIC_API_ORIGIN;
 
+const getTokenFromCookie = () => {
+  const cookieValue = getCookie("auth-storage");
+  if (!cookieValue) return null;
+  
+  try {
+    const decodedValue = decodeURIComponent(cookieValue);
+    const parsed = JSON.parse(decodedValue);
+    
+    return parsed.state.token || null;
+  } catch (error) {
+    return null;
+  }
+};
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const globalController = async (url: string, method: string, body?: Record<string, any>) => {
-  const token = useAuthStore.getState().token;  
+  const token = useAuthStore?.getState()?.token || getTokenFromCookie();
   const headers = {
     "Content-Type": "application/json" as const,
   } as Record<string, string>;
