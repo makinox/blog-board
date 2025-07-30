@@ -7,7 +7,7 @@
     "dev:network": "astro dev --host",
     "fetch:remote": "node ./scripts/fetch-remote.js",
     "generate:previews": "node scripts/generateDefaultPreview.mjs && node scripts/generatePreviewImages.mjs",
-    "build": "yarn generate:previews && astro check && astro build",
+    "build": "yarn fetch:remote && yarn generate:previews && astro check && astro build",
     "deploy": "yarn test --run && yarn build && firebase deploy",
     "preview": "astro preview",
     "preview:network": "astro preview --host",
@@ -16,7 +16,7 @@
     "lint:fix": "eslint . --fix",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "test:run": "vitest run",
+    "test:run": "vitest run --silent",
     "check": "./scripts/check-code.sh",
     "setup-hooks": "./scripts/setup-hooks.sh",
     "pre-commit": "yarn lint && yarn test:run"
