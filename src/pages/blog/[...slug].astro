@@ -13,6 +13,7 @@ import RelatedPosts from "@components/RelatedPosts/RelatedPosts.astro";
 import PageLayout from "@layouts/PageLayout.astro";
 
 import { readingTime } from "@lib/utils";
+import { useBlogStore } from "@stores/blogStore";
 
 export async function getStaticPaths() {
   const posts = (await getCollection("blog"))
@@ -47,6 +48,8 @@ const cleanedRelatedPosts = relatedPosts.map((post) => ({
     title: post.data.title,
   },
 }));
+
+useBlogStore.setState({ blogs: [{ page_url: post.slug, likes: 0, isLiked: false }] });
 ---
 
 <PageLayout title={post.data.title} description={post.data.title} slug={post.slug}>

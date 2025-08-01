@@ -1,3 +1,4 @@
+import { useBlogStore } from "@stores/blogStore";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -46,8 +47,16 @@ export const safeWindow = () => {
   return window as Window;
 };
 
-export const getCurrentBlogUrl = () => {
+const cleanParamsFromString = (str: string) => str.split("?")[0];
+
+const cleanHashesFromString = (str: string) => str.split("#")[0];
+
+const getCurrentPageUrlFromWindow = () => {
   const win = safeWindow();
-  const cleanLastSlash = win?.location.href.charAt(win?.location.href.length - 1) === "/" ? win?.location.href.split("/").at(-2) : win?.location.href.split("/").pop();
-  return cleanLastSlash || "";
+  const resultantUrl = win?.location.href.charAt(win?.location.href.length - 1) === "/" ? win?.location.href.split("/").at(-2) : win?.location.href.split("/").pop();
+  return cleanHashesFromString(cleanParamsFromString(resultantUrl || ""));
 };
+
+const getCurrentPageUrlFromStore = () => cleanHashesFromString(cleanParamsFromString(useBlogStore.getState().blogs[0]?.page_url || ""));
+
+export const getCurrentBlogUrl = () => getCurrentPageUrlFromStore() || getCurrentPageUrlFromWindow();

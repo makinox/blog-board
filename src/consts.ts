@@ -48,4 +48,4 @@ export const SOCIALS: Socials = [
   },
 ];
 
-export const API_ACTIVE = false;
+export const API_ACTIVE = true;
