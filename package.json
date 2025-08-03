@@ -7,6 +7,7 @@
     "dev:network": "astro dev --host",
     "fetch:remote": "node ./scripts/fetch-remote.js",
     "generate:previews": "node scripts/generateDefaultPreview.mjs && node scripts/generatePreviewImages.mjs",
+    "generate:previews:force": "node scripts/generateDefaultPreview.mjs --force && node scripts/generatePreviewImages.mjs --force",
     "build": "yarn fetch:remote && yarn generate:previews && astro check && astro build",
     "deploy": "yarn test --run && yarn build && firebase deploy",
     "preview": "astro preview",

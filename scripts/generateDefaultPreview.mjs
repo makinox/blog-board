@@ -1,8 +1,15 @@
 import { generatePreviewImageForPost } from "./generatePreviewImage.js";
 import path from "path";
+import fs from "fs/promises";
 
 async function generateDefaultPreview() {
-  console.log("🚀 Generating default preview image...");
+  const force = process.argv.includes("--force");
+  
+  if (force) {
+    console.log("🚀 Generating default preview image (forced)...");
+  } else {
+    console.log("🚀 Checking default preview image...");
+  }
   
   try {
     const outputPath = path.join(
@@ -10,6 +17,16 @@ async function generateDefaultPreview() {
       "public", 
       "preview.webp"
     );
+    
+    if (!force) {
+      try {
+        await fs.access(outputPath);
+        console.log("⏭️  Default preview image already exists, skipping generation");
+        return;
+      } catch (error) {
+        console.log("🔄 Generating default preview image...");
+      }
+    }
     
     await generatePreviewImageForPost("Blog Personal", outputPath);
     
