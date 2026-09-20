@@ -13,6 +13,6 @@ export interface SignUpResponse {
   token: string;
   user: User;
   visitor_id: number | null;
-} 
+}
 
 export const signUp = async (data: SignUpData): Promise<SignUpResponse> => await globalController("/sign-up", "POST", data);

@@ -10,15 +10,17 @@ export function formatDate(date: Date) {
   return Intl.DateTimeFormat("es-MX", {
     month: "short",
     day: "2-digit",
-    year: "numeric"
+    year: "numeric",
   }).format(date);
 }
 
 export function readingTime(html: string) {
   const textOnly = html.replace(/<[^>]+>/g, "");
   const wordCount = textOnly.split(/\s+/).length;
-  const readingTimeMinutes = ((wordCount / 200) + 1).toFixed();
-  return `${readingTimeMinutes} minutos de lectura`;
+  const readingTimeMinutes = (wordCount / 200 + 1).toFixed();
+  const minuteWord = readingTimeMinutes === "1" ? "minuto" : "minutos";
+
+  return `${readingTimeMinutes} ${minuteWord} de lectura`;
 }
 
 export function dateRange(startDate: Date, endDate?: Date | string): string {
@@ -53,13 +55,20 @@ const cleanHashesFromString = (str: string) => str.split("#")[0];
 
 const getCurrentPageUrlFromWindow = () => {
   const win = safeWindow();
-  const resultantUrl = win?.location.href.charAt(win?.location.href.length - 1) === "/" ? win?.location.href.split("/").at(-2) : win?.location.href.split("/").pop();
+  const resultantUrl =
+    win?.location.href.charAt(win?.location.href.length - 1) === "/"
+      ? win?.location.href.split("/").at(-2)
+      : win?.location.href.split("/").pop();
   return cleanHashesFromString(cleanParamsFromString(resultantUrl || ""));
 };
 
-const getCurrentPageUrlFromStore = () => cleanHashesFromString(cleanParamsFromString(useBlogStore.getState().blogs[0]?.page_url || ""));
+const getCurrentPageUrlFromStore = () =>
+  cleanHashesFromString(
+    cleanParamsFromString(useBlogStore.getState().blogs[0]?.page_url || ""),
+  );
 
-export const getCurrentBlogUrl = () => getCurrentPageUrlFromStore() || getCurrentPageUrlFromWindow();
+export const getCurrentBlogUrl = () =>
+  getCurrentPageUrlFromStore() || getCurrentPageUrlFromWindow();
 
 const generateUniqueVisitorId = () => {
   const generateFingerprint = () => {
@@ -68,21 +77,23 @@ const generateUniqueVisitorId = () => {
     ctx!.textBaseline = "top";
     ctx!.font = "14px Arial";
     ctx!.fillText("Browser fingerprint 🎨", 2, 2);
-    
+
     const fingerprint = [
       navigator.userAgent,
       navigator.language,
       screen.width + "x" + screen.height,
       new Date().getTimezoneOffset(),
       navigator.hardwareConcurrency || "unknown",
-      ("deviceMemory" in navigator ? (navigator as Navigator & { deviceMemory?: number }).deviceMemory : "unknown"),
-      canvas.toDataURL()
+      "deviceMemory" in navigator
+        ? (navigator as Navigator & { deviceMemory?: number }).deviceMemory
+        : "unknown",
+      canvas.toDataURL(),
     ].join("|");
-    
+
     let hash = 0;
     for (let i = 0; i < fingerprint.length; i++) {
       const char = fingerprint.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
+      hash = (hash << 5) - hash + char;
       hash = hash & hash;
     }
     return Math.abs(hash).toString(36);
@@ -90,18 +101,18 @@ const generateUniqueVisitorId = () => {
 
   const storageKey = "visitor_id";
   let visitorId = localStorage.getItem(storageKey);
-  
+
   if (!visitorId) {
     visitorId = generateFingerprint();
     localStorage.setItem(storageKey, visitorId);
   }
-  
+
   return visitorId;
 };
 
 export const getVisitorId = (): string | null => {
   if (typeof window === "undefined") return null;
-  
+
   try {
     return generateUniqueVisitorId();
   } catch (error) {
