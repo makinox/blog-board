@@ -2,32 +2,67 @@
 import { getCollection } from "astro:content";
 
 import Container from "@components/Container/Container.astro";
-import {ArrowCard} from "@components/ArrowCard/ArrowCard";
+import { ArrowCard } from "@components/ArrowCard/ArrowCard";
 import Footer from "@components/Footer/Footer.astro";
-
 import PageLayout from "@layouts/PageLayout.astro";
 
 import { SITE, HOME } from "@consts";
 
 const blog = (await getCollection("blog"))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0,SITE.NUM_POSTS_ON_HOMEPAGE);
-
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <PageLayout title={HOME.TITLE} description={HOME.DESCRIPTION}>
   <Container>
     <div class="space-y-16">
       <section class="animate space-y-6 mt-20">
-        <ul class="flex flex-col gap-4">
-          {blog.map(post => (
-            <li>
+
+        <ul id="blog-list" class="flex flex-col gap-4">
+          {blog.map((post, index) => (
+            <li data-post-index={index}>
               <ArrowCard title={post.data.title} slug={post.slug} />
             </li>
           ))}
         </ul>
+
+        <nav id="pagination" class="flex justify-center gap-2"></nav>
+
       </section>
     </div>
   </Container>
+
   <Footer />
 </PageLayout>
+
+<script define:vars={{ postsPerPage: SITE.NUM_POSTS_ON_HOMEPAGE, totalPosts: blog.length }}>
+  const params = new URLSearchParams(window.location.search);
+
+  const currentPage = Math.max(
+    0,
+    Number(params.get("page") ?? 0)
+  );
+
+  const start = currentPage * postsPerPage;
+  const end = start + postsPerPage;
+
+  document.querySelectorAll("[data-post-index]").forEach((post) => {
+    const index = Number(post.dataset.postIndex);
+
+    post.hidden = index < start || index >= end;
+  });
+
+  const totalPages = Math.ceil(totalPosts / postsPerPage);
+  const pagination = document.querySelector("#pagination");
+
+  for (let page = 0; page < totalPages; page++) {
+    const link = document.createElement("a");
+
+    link.href = page === 0 ? "/" : `/?page=${page}`;
+    link.textContent = String(page + 1);
+    link.classList.value = "btn btn-sm btn-outline";
+
+    if (page === currentPage) link.classList.value = "btn btn-sm btn-neutral";
+
+    pagination?.appendChild(link);
+  }
+</script>
