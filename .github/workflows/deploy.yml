@@ -18,27 +18,31 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "yarn"
+          node-version: "24"
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: bun install --frozen-lockfile
 
       - name: Run tests
-        run: yarn test:run
+        run: bun run test:run
 
       - name: Build project
-        run: yarn build
+        run: bun run build
 
       - name: Deploy to Firebase (only on main/master)
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
         env:
           FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
         run: |
           echo "$FIREBASE_SERVICE_ACCOUNT_JSON" > ./service-account.json
           export GOOGLE_APPLICATION_CREDENTIALS="./service-account.json"
 
-          npx firebase-tools@13.31.0 deploy --only hosting --project ${{ secrets.FIREBASE_PROJECT_ID }} --non-interactive
+          bunx firebase-tools@13.31.0 deploy --only hosting --project ${{ secrets.FIREBASE_PROJECT_ID }} --non-interactive
