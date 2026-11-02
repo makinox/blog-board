@@ -1,5 +1,5 @@
 import { vi } from "vitest";
-import "@testing-library/jest-dom";
+import "@testing-library/jest-dom/vitest";
 
 Object.defineProperty(window, "location", {
   value: {
@@ -26,4 +26,4 @@ vi.mock("@lib/utils", async () => {
     ...actual,
     safeWindow: () => window,
   };
-}); 
+});

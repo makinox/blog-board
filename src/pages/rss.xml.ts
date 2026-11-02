@@ -3,15 +3,15 @@ import { getCollection } from "astro:content";
 import { HOME } from "@consts";
 
 type Context = {
-  site: string
-}
+  site: string;
+};
 
 export async function GET(context: Context) {
-  const blog = (await getCollection("blog"));
+  const blog = await getCollection("blog");
 
-
-  const items = [...blog]
-    .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
+  const items = [...blog].sort(
+    (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf(),
+  );
 
   return rss({
     title: HOME.TITLE,
@@ -21,7 +21,7 @@ export async function GET(context: Context) {
       title: item.data.title,
       description: item.data.title,
       pubDate: item.data.date,
-      link: `/${item.collection}/${item.slug}/`,
+      link: `/${item.collection}/${item.id}/`,
     })),
   });
 }

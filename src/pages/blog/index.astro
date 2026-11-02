@@ -11,7 +11,7 @@ import { BLOG } from "@consts";
 
 const data = (await getCollection("blog"))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-  
+
 type Acc = {
   [year: string]: CollectionEntry<"blog">[];
 }
@@ -19,12 +19,12 @@ type Acc = {
 const posts = data.reduce((acc: Acc, post) => {
     const year = post.data.date.getFullYear().toString();
     if (!acc[year]) acc[year] = [];
-    
+
     acc[year].push(post);
     return acc;
   }, {});
 
-const years = Object.keys(posts).sort((a, b) => parseInt(b) - parseInt(a)); 
+const years = Object.keys(posts).sort((a, b) => parseInt(b) - parseInt(a));
 ---
 
 <PageLayout title={BLOG.TITLE} description={BLOG.DESCRIPTION}>
@@ -44,7 +44,7 @@ const years = Object.keys(posts).sort((a, b) => parseInt(b) - parseInt(a));
                 {
                   posts[year].map((post) => (
                     <li>
-                      <ArrowCard title={post.data.title} slug={post.slug} />
+                      <ArrowCard title={post.data.title} slug={post.id} />
                     </li>
                   ))
                 }
