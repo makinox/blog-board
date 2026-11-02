@@ -20,7 +20,7 @@ const blog = (await getCollection("blog"))
         <ul id="blog-list" class="flex flex-col gap-4">
           {blog.map((post, index) => (
             <li data-post-index={index}>
-              <ArrowCard title={post.data.title} slug={post.slug} />
+              <ArrowCard title={post.data.title} slug={post.id} />
             </li>
           ))}
         </ul>

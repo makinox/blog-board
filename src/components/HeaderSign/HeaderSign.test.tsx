@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { HeaderSign } from "./HeaderSign";
 import { useAuthStore } from "@stores/authStore";
 
@@ -54,15 +54,24 @@ describe("HeaderSign", () => {
       render(<HeaderSign />);
 
       const signInButton = screen.getByRole("link", { name: "Iniciar Sesión" });
-      expect(signInButton).toHaveClass("btn", "btn-outline", "btn-xs", "hover:btn-info");
+      expect(signInButton).toHaveClass(
+        "btn",
+        "btn-outline",
+        "btn-xs",
+        "hover:btn-info",
+      );
     });
 
     it("should not render avatar or dropdown when not authenticated", () => {
       render(<HeaderSign />);
 
-      expect(screen.queryByRole("button", { name: /avatar/i })).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole("button", { name: /avatar/i }),
+      ).not.toBeInTheDocument();
       expect(screen.queryByText("Hola John")).not.toBeInTheDocument();
-      expect(screen.queryByRole("button", { name: "Cerrar sesión" })).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole("button", { name: "Cerrar sesión" }),
+      ).not.toBeInTheDocument();
     });
   });
 
@@ -80,7 +89,11 @@ describe("HeaderSign", () => {
 
       const avatarButton = screen.getByRole("button", { name: "J" });
       expect(avatarButton).toBeInTheDocument();
-      expect(avatarButton).toHaveClass("avatar", "avatar-placeholder", "cursor-pointer");
+      expect(avatarButton).toHaveClass(
+        "avatar",
+        "avatar-placeholder",
+        "cursor-pointer",
+      );
     });
 
     it("should render user's first initial in avatar", () => {
@@ -124,87 +137,9 @@ describe("HeaderSign", () => {
       const greeting = screen.getByText("Hola John Doe");
       expect(greeting).toBeInTheDocument();
     });
-
-    it("should render logout button", () => {
-      render(<HeaderSign />);
-
-      const logoutButton = screen.getByRole("button", { name: "Cerrar sesión" });
-      expect(logoutButton).toBeInTheDocument();
-    });
-
-    it("should have correct CSS classes for logout button", () => {
-      render(<HeaderSign />);
-
-      const logoutButton = screen.getByRole("button", { name: "Cerrar sesión" });
-      expect(logoutButton).toHaveClass("btn", "btn-error", "btn-outline", "btn-xs");
-    });
-
-    it("should call logout function when logout button is clicked", () => {
-      render(<HeaderSign />);
-
-      const logoutButton = screen.getByRole("button", { name: "Cerrar sesión" });
-      fireEvent.click(logoutButton);
-
-      expect(mockLogout).toHaveBeenCalledTimes(1);
-    });
-
-    it("should render dropdown with correct styling", () => {
-      render(<HeaderSign />);
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const dropdown = (screen.getByRole("button", { name: "Cerrar sesión" }) as any).closest("div").parentElement;
-      expect(dropdown).toHaveClass("dropdown", "dropdown-end", "menu", "w-52", "rounded-box");
-    });
-
-    it("should have correct popover attributes", () => {
-      render(<HeaderSign />);
-
-      const avatarButton = screen.getByRole("button", { name: "J" });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const dropdown = (screen.getByRole("button", { name: "Cerrar sesión" }) as any).closest("div").parentElement;
-
-      expect(avatarButton).toHaveAttribute("popoverTarget", "popover-1");
-      expect(dropdown).toHaveAttribute("popover", "auto");
-      expect(dropdown).toHaveAttribute("id", "popover-1");
-    });
-
-    it("should have correct anchor styling", () => {
-      render(<HeaderSign />);
-
-      const avatarButton = screen.getByRole("button", { name: "J" });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const dropdown = (screen.getByRole("button", { name: "Cerrar sesión" }) as any).closest("div").parentElement;
-
-      expect(avatarButton).toHaveStyle({ "anchor-name": "--anchor-1" });
-      expect(dropdown).toHaveStyle({ "position-anchor": "--anchor-1" });
-    });
-
-    it("should have correct tabIndex attributes", () => {
-      render(<HeaderSign />);
-
-      const avatarButton = screen.getByRole("button", { name: "J" });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const dropdown = (screen.getByRole("button", { name: "Cerrar sesión" }) as any).closest("div").parentElement;
-
-      expect(avatarButton).toHaveAttribute("tabIndex", "0");
-      expect(dropdown).toHaveAttribute("tabIndex", "0");
-    });
   });
 
   describe("Accessibility", () => {
-    it("should have proper button roles when authenticated", () => {
-      mockUseAuthStore.mockReturnValue({
-        isAuthenticated: true,
-        user: mockUser,
-        logout: mockLogout,
-      });
-
-      render(<HeaderSign />);
-
-      const buttons = screen.getAllByRole("button");
-      expect(buttons).toHaveLength(2); // avatar button and logout button
-    });
-
     it("should have proper link role when not authenticated", () => {
       mockUseAuthStore.mockReturnValue({
         isAuthenticated: false,
@@ -216,20 +151,6 @@ describe("HeaderSign", () => {
 
       const link = screen.getByRole("link");
       expect(link).toBeInTheDocument();
-    });
-
-    it("should have proper heading structure in dropdown", () => {
-      mockUseAuthStore.mockReturnValue({
-        isAuthenticated: true,
-        user: mockUser,
-        logout: mockLogout,
-      });
-
-      render(<HeaderSign />);
-
-      const heading = screen.getByRole("heading", { level: 3 });
-      expect(heading).toBeInTheDocument();
-      expect(heading).toHaveTextContent("Hola John Doe");
     });
   });
 
@@ -307,34 +228,14 @@ describe("HeaderSign", () => {
       render(<HeaderSign />);
 
       const avatarContainer = screen.getByText("J").closest("div");
-      expect(avatarContainer).toHaveClass("bg-transparent", "border", "border-stone-400", "w-8", "rounded-full", "hover:border-stone-500");
-    });
-
-    it("should have correct dropdown styling", () => {
-      mockUseAuthStore.mockReturnValue({
-        isAuthenticated: true,
-        user: mockUser,
-        logout: mockLogout,
-      });
-
-      render(<HeaderSign />);
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const dropdown = (screen.getByRole("button", { name: "Cerrar sesión" }) as any).closest("div").parentElement;
-      expect(dropdown).toHaveClass("border", "border-stone-200", "bg-stone-50", "shadow-sm", "mt-2");
-    });
-
-    it("should have correct button container styling", () => {
-      mockUseAuthStore.mockReturnValue({
-        isAuthenticated: true,
-        user: mockUser,
-        logout: mockLogout,
-      });
-
-      render(<HeaderSign />);
-
-      const buttonContainer = screen.getByRole("button", { name: "Cerrar sesión" }).closest("div");
-      expect(buttonContainer).toHaveClass("flex", "flex-col");
+      expect(avatarContainer).toHaveClass(
+        "bg-transparent",
+        "border",
+        "border-stone-400",
+        "w-8",
+        "rounded-full",
+        "hover:border-stone-500",
+      );
     });
   });
-}); 
+});

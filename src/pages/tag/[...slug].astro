@@ -40,7 +40,7 @@ const { posts } = Astro.props;
         <ul class="flex flex-col gap-4">
           {posts.map(post => (
             <li>
-              <ArrowCard title={post.data.title} slug={post.slug} />
+              <ArrowCard title={post.data.title} slug={post.id} />
             </li>
           ))}
         </ul>

@@ -1,5 +1,5 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection, render } from "astro:content";
 
 import FormattedDate from "@components/FormattedDate/FormattedDate.astro";
 import CustomImage from "@components/CustomImage/CustomImage.astro";
@@ -20,14 +20,14 @@ export async function getStaticPaths() {
   const posts = (await getCollection("blog"))
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
   return posts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
     props: post,
   }));
 }
 type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
-const { Content } = await post.render();
+const { Content } = await render(post);
 const components = { img: CustomImage };
 
 const allPosts = await getCollection("blog");
@@ -53,11 +53,11 @@ const cleanedRelatedPosts = relatedPosts.map((post) => ({
 useBlogStore.setState({ blogs: [{ page_url: post.slug, likes: 0, isLiked: false }] });
 ---
 
-<PageLayout title={post.data.title} description={post.data.title} slug={post.slug}>
+<PageLayout title={post.data.title} description={post.data.title} slug={post.id}>
   <div class="h-32 sm:h-52 lg:h-80 w-full mt-14">
-    <HeroImage 
-      src={post.data.timage} 
-      alt={post.data.title} 
+    <HeroImage
+      src={post.data.timage}
+      alt={post.data.title}
       class="w-full h-full object-cover"
       width={1280}
       height={720}
@@ -81,13 +81,13 @@ useBlogStore.setState({ blogs: [{ page_url: post.slug, likes: 0, isLiked: false 
     <article class="animate overflow-hidden break-words article">
       <Content components={components} />
     </article>
-    
+
     <PostAsyncHooks client:visible />
     <TagsFooter tags={post.data.tags} />
     <PostFooter post={post} />
     <RelatedPosts relatedPosts={cleanedRelatedPosts} />
-    
+
     <Footer />
-    
+
   </Container>
 </PageLayout>
