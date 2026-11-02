@@ -2,14 +2,17 @@
   "name": "blog-board",
   "type": "module",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=24 <25"
+  },
   "scripts": {
     "dev": "astro dev",
     "dev:network": "astro dev --host",
     "fetch:remote": "node ./scripts/fetch-remote.js",
     "generate:previews": "node scripts/generateDefaultPreview.mjs && node scripts/generatePreviewImages.mjs",
     "generate:previews:force": "node scripts/generateDefaultPreview.mjs --force && node scripts/generatePreviewImages.mjs --force",
-    "build": "yarn fetch:remote && yarn generate:previews && astro check && astro build",
-    "deploy": "yarn test --run && yarn build && firebase deploy",
+    "build": "bun fetch:remote && bun generate:previews && astro check && astro build",
+    "deploy": "bun test --run && bun build && firebase deploy",
     "preview": "astro preview",
     "preview:network": "astro preview --host",
     "astro": "astro",
@@ -20,7 +23,7 @@
     "test:run": "vitest run --silent",
     "check": "./scripts/check-code.sh",
     "setup-hooks": "./scripts/setup-hooks.sh",
-    "pre-commit": "yarn lint && yarn test:run"
+    "pre-commit": "bun lint && bun test:run"
   },
   "dependencies": {
     "@astrojs/check": "0.9.4",
